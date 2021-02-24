@@ -10,3 +10,4 @@ w
 #ifup eth0 #ifdown eth0
 nmap
 arp-scan
+systemctl
