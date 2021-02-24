@@ -1,0 +1,12 @@
+curl
+ifconfig
+traceroute
+dig
+telnet
+nslookup
+netstat
+scp
+w
+#ifup eth0 #ifdown eth0
+nmap
+arp-scan
