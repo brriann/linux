@@ -1,0 +1,39 @@
+GNU projects to look into:
+
+tar
+spacechart
+serveez
+sed
+rpgengine
+remotecontrol
+psychosynth
+pspp
+poke
+plotutils
+pcb
+nano
+mempool
+mcron
+make
+lightning
+libmicrohttpd
+libmatheval
+gnupg
+gnu c library
+gzip
+gtick
+gsl scientific library
+grub
+grep
+gperf
+gnu go
+gnu c ref man
+glpk
+gcc
+g++
+ccaudioz
+xboard
+xaos
+which
+wget
+wb b-tree db
