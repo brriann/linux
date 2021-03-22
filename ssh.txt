@@ -1,0 +1,5 @@
+(SERVER)
+running?
+ps aux | grep sshd
+listening?
+netstat -plant | grep :22
