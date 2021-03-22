@@ -1,0 +1,28 @@
+>> vi myFile.cpp
+
+(vi starts in Command mode)
+
+i - enter Insert mode
+Esc - back to Command mode
+
+moving in command mode
+w - move to next word
+b - move to previous word
+
+h - move left one character
+j - move down to next line
+k - move up to previous line
+l - move right one character
+
+delete in command mode
+dw - delete current word, or current word after cursor
+
+newline
+o - new line under current line, go to Insert mode
+
+exiting vi
+:q! - quit no write
+:w! - write file, modified or not
+ZZ - write file if modified, then exit
+:e! - edit current disk copy of file (eg abandon changes/reload)
+
