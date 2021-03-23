@@ -1,0 +1,18 @@
+sudo apt-get install apache2 -y
+cat /var/www/html/index.html
+
+sudo apt-get install php -y
+rm -f /var/www/html/index.html
+touch /var/www/html/index.php
+vi /var/www/html/index.php
+>>> <?php echo "hello world"; ?>
+>>> <?php echo date('Y-m-d H:i:s'); ?>
+>>> <?php phpinfo(); ?>
+
+sudo service apache2 restart
+
+sudo apt-get install mariadb-server php-mysql -y
+
+sudo service apache2 restart
+
+https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3
