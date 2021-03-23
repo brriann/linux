@@ -2,9 +2,10 @@
 $servername = "127.0.0.1";
 $username = "NOCOMMIT";
 $password = "NOCOMMIT";
+$database = "lampdb";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password, $database);
 
 // Check connection
 if ($conn->connect_error) {
@@ -14,7 +15,7 @@ if ($conn->connect_error) {
 $sql = "SELECT Id, VidName, VidUrl FROM youtubes";
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+if (mysqli_num_rows($result)) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
     echo "id: " . $row["Id"]. " - Name: " . $row["VidName"]. " - Url: " . $row["VidUrl"]. "<br>";
