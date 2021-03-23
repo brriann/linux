@@ -1,7 +1,7 @@
 <?php
-$servername = "locahost";
-$username = "username";
-$password = "password";
+$servername = "127.0.0.1";
+$username = "NOCOMMIT";
+$password = "NOCOMMIT";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
