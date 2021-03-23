@@ -31,8 +31,11 @@ https://dev.mysql.com/doc/refman/8.0/en/
 >>> grant all privileges on lampdb.* to '<username>'@'localhost';
 >>> flush privileges;
 
-sugo mysql -u<username> -p
+sudo mysql -u<username> -p
 
+sudo apt install phpmyadmin
+>> (apache2 option: SPACE + ENTER)
+>> (config for db-common: NO)
 
 
 https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3
