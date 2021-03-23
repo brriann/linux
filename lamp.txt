@@ -2,6 +2,7 @@ sudo apt-get install apache2 -y
 cat /var/www/html/index.html
 
 sudo apt-get install php -y
+sudo apt-get install libapache2-mod-php
 rm -f /var/www/html/index.html
 touch /var/www/html/index.php
 vi /var/www/html/index.php
@@ -15,4 +16,26 @@ sudo apt-get install mariadb-server php-mysql -y
 
 sudo service apache2 restart
 
+sudo mysql -uroot -p
+
+>>> show databases;
+>>> use <database>;
+>>> show tables;
+>>> select * from <table>;
+>>> update, insert, delete, etc;
+
+https://dev.mysql.com/doc/refman/8.0/en/
+
+>>> create database lampdb;
+>>> create user '<username>'@'localhost' identified by '<password>';
+>>> grant all privileges on lampdb to '<username>'@'localhost';
+>>> flush privileges;
+
+sugo mysql -u<username> -p
+
+
+
 https://projects.raspberrypi.org/en/projects/lamp-web-server-with-wordpress/3
+https://raspberrytips.com/web-server-setup-on-raspberry-pi/
+
+
