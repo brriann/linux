@@ -25,15 +25,15 @@ if (isset($_GET["url"]) && isset($_GET["name"])) {
   echo "<br>" . "<br>" . "<br>"; 
   
   $fullUrl = "https://www.youtube.com/watch?v=" . $url;
-  echo "fullUrl: " . $fullUrl . "<br>";
+  echo "fullUrl: " . $fullUrl . "<br>" . "<br>";
   
   $insertSql = "INSERT INTO `youtubes` (`VidName`, `VidUrl`, `DateAdded`) VALUES ('" . $name . "', '" . $fullUrl . "', NULL)";
-  echo "insertSql: " . $insertSql . "<br>";
-//   if ($conn->query($insertSql) === TRUE) {
-//     echo "Inserted record from queryString params." . "<br>" . "<br>";
-//   } else {
-//       echo "Error inserting record from queryString" . "<br>" . "<br>";
-//   }
+  echo "insertSql: " . $insertSql . "<br>" . "<br>";
+  if ($conn->query($insertSql) === TRUE) {
+    echo "Inserted record from queryString params." . "<br>" . "<br>";
+  } else {
+      echo "Error inserting record from queryString" . "<br>" . "<br>";
+  }
 }
 
 $sql = "SELECT Id, VidName, VidUrl FROM youtubes";
