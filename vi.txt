@@ -16,6 +16,7 @@ l - move right one character
 
 delete in command mode
 dw - delete current word, or current word after cursor
+dd - delete current line
 
 newline
 o - new line under current line, go to Insert mode
