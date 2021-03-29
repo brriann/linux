@@ -29,11 +29,11 @@ if (isset($_GET["url"]) && isset($_GET["name"])) {
   
   $insertSql = "INSERT INTO `youtubes` (`VidName`, `VidUrl`, `DateAdded`) VALUES ('" . $name . "', '" . $fullUrl . "', NULL)";
   echo "insertSql: " . $insertSql . "<br>";
-  if ($conn->query($insertSql) === TRUE) {
-    echo "Inserted record from queryString params." . "<br>" . "<br>";
-  } else {
-      echo "Error inserting record from queryString" . "<br>" . "<br>";
-  }
+//   if ($conn->query($insertSql) === TRUE) {
+//     echo "Inserted record from queryString params." . "<br>" . "<br>";
+//   } else {
+//       echo "Error inserting record from queryString" . "<br>" . "<br>";
+//   }
 }
 
 $sql = "SELECT Id, VidName, VidUrl FROM youtubes";
