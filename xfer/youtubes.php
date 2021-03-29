@@ -26,7 +26,7 @@ if (isset($_GET["url"]) && isset($_GET["name"])) {
   
   $fullUrl = "https://www.youtube.com/watch?v=" . $url;
   
-  $insertSql = "INSERT INTO `youtubes` (`VidName`, `VidUrl`, `DateAdded`) VALUES (" . $name . ", " . $fullUrl . ", NULL)"
+  $insertSql = "INSERT INTO `youtubes` (`VidName`, `VidUrl`, `DateAdded`) VALUES ('" . $name . "', '" . $fullUrl . "', NULL)"
   if ($conn->query($insertSql) === TRUE) {
     echo "Inserted record from queryString params." . "<br>" . "<br>";
   } else {
