@@ -4,6 +4,8 @@ sudo rm -f /var/www/html/index.php
 sudo cp youtubes.php /var/www/html/index.php
 sudo service apache2 restart
 
+/etc/apache2
+
 ### provisioning
 
 
