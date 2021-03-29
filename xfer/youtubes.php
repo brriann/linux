@@ -4,6 +4,12 @@ $username = "NOCOMMIT";
 $password = "NOCOMMIT";
 $database = "lampdb";
 
+$queryString = $_SERVER['QUERY_STRING'];
+echo "queryString: " $queryString;
+parse_str($queryString, $output);
+echo "urlQueryParam: " $output['url'];
+echo "nameQueryParam: " $output['name'];
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
