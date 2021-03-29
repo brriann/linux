@@ -1,10 +1,19 @@
 <?php
 $servername = "127.0.0.1";
-$username = "NOCOMMIT";
-$password = "NOCOMMIT";
+$username = "NOCOMMIT"; 
+$password = "NOCOMMIT"; 
 $database = "lampdb";
 
 print_r($_SERVER);
+echo "<br>" . "<br>" . "<br>" . "<br>"; 
+if (isset($_GET["url"]) && isset($_GET["name"])) {
+  $url = $_GET["url"];
+  $name = $_GET["name"];
+  echo "url: " . $url . "<br>";
+  echo "name: " . $name . "<br>";
+  echo "<br>" . "<br>" . "<br>"; 
+}
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
