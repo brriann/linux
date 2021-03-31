@@ -10,26 +10,35 @@ CREATE TABLE `youtubes` (
 
 -- add artist column
 
-alter table youtubes add column VidArtist varchar(50) not null after VidName
+alter table youtubes add column VidArtist varchar(50) not null after VidName;
 
 -- split out vidname to name/artist columns
 
-update youtubes set VidName = replace(Vidname, 'Hot Since 82 ', 'Hot Since 82-')
+update youtubes set VidName = replace(Vidname, 'Hot Since 82 ', 'Hot Since 82-');
 
-create table #tempArtistNames
+create temporary table tempArtistNames
 (
 artist varchar(50) not null
-)
+);
 
-insert into #tempArtistNames (artist) values ('FKJ')
-insert into #tempArtistNames (artist) values ('Acid Pauli')
-insert into #tempArtistNames (artist) values ('El Buho')
-insert into #tempArtistNames (artist) values ('Nicolas Jaar')
-insert into #tempArtistNames (artist) values ('Nicola Cruz')
-insert into #tempArtistNames (artist) values ('Bonobo')
-insert into #tempArtistNames (artist) values ('Dixon')
-insert into #tempArtistNames (artist) values ('Satori')
-insert into #tempArtistNames (artist) values ('Black Sabbath')
-insert into #tempArtistNames (artist) values ('Polo and Pan')
-insert into #tempArtistNames (artist) values ('Nightmares On Wax')
+insert into tempArtistNames (artist) values ('FKJ');
+insert into tempArtistNames (artist) values ('Acid Pauli');
+insert into tempArtistNames (artist) values ('El Buho');
+insert into tempArtistNames (artist) values ('Nicolas Jaar');
+insert into tempArtistNames (artist) values ('Nicola Cruz');
+insert into tempArtistNames (artist) values ('Bonobo');
+insert into tempArtistNames (artist) values ('Dixon');
+insert into tempArtistNames (artist) values ('Satori');
+insert into tempArtistNames (artist) values ('Black Sabbath');
+insert into tempArtistNames (artist) values ('Polo and Pan');
+insert into tempArtistNames (artist) values ('Nightmares On Wax');
+
+set @artist = ''
+
+while (select count(*) from tempArtistNames) > 0
+begin
+  select top 1 @artist = artist from #temp;
+  update youtubes set VidName = replace(Vidname, concat(@artist, ' '), concat(@artist, '-'));
+  delete tempArtistNames where artist = @artist;
+end
 
