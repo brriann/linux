@@ -1,0 +1,43 @@
+ifconfig
+
+traceroute
+
+https://www.pluralsight.com/blog/it-ops/top-10-tcp-ip-tools
+
+wireshark
+apt-get install wireshark
+https://www.wireshark.org/docs/wsug_html_chunked/ChCustCommandLine.html
+
+nmap
+apt-get install nmap
+https://www.maketecheasier.com/beginners-guide-using-nmap/
+
+iperf3
+https://rwolfe.io/2018/01/23/setting-up-an-iperf3-server-on-a-raspberry-pi/
+
+putty
+https://documentation.help/PuTTY/using-cmdline.html
+
+netstat
+man netstat
+
+curl
+man curl
+https://www.freecodecamp.org/news/how-to-start-using-curl-and-why-a-hands-on-introduction-ea1c913caaaa/
+
+dig
+sudo apt-get install dnsutils
+dig bfostdev.com
+
+telnet
+sudo apt-get install telnetd
+
+pure-ftpd
+sudo apt-get install pure-ftpd
+https://www.raspberrypi.org/documentation/remote-access/ftp.md
+
+arp-scan
+sudo apt-get install arp-scan
+man arp-scan
+
+#ifup eth0 #ifdown eth0
