@@ -17,7 +17,25 @@ if ($conn->connect_error) {
 }
 
 // handle query parameters
-if (isset($_GET["url"]) && isset($_GET["name"])) {
+
+
+if (isset($_GET["stamp"]) && isset($_GET["time"]) && && isset($_GET["id"])) {
+  // timestamp
+  $id = $_GET["id"];
+  $time = $_GET["time"];
+  echo "id: " . $id . "<br>";
+  echo "time: " . $time . "<br>";
+  echo "<br>" . "<br>" . "<br>"; 
+
+  $insertTimeSql = "INSERT INTO `timestamps` (`YoutubesId`, `TimeStampString`, `DateAdded`) VALUES ('" . $name . "', '" . $fullUrl . "', NULL)";
+  echo "insertTimeSql: " . $insertTimeSql . "<br>" . "<br>";
+  if ($conn->query($insertTimeSql) === TRUE) {
+    echo "Inserted record from queryString params." . "<br>" . "<br>";
+  } else {
+      echo "Error inserting record from queryString" . "<br>" . "<br>";
+  }
+
+} else if (isset($_GET["url"]) && isset($_GET["name"])) {
   $url = $_GET["url"];
   $name = $_GET["name"];
   echo "url: " . $url . "<br>";
