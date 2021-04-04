@@ -1,8 +1,11 @@
 >> vi myFile.cpp
+>> vimtutor
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/vi.html
 
 (vi starts in Command mode)
 
 i - enter Insert mode
+A - enter Append (to current line) mode
 Esc - back to Command mode
 
 moving in command mode
@@ -15,6 +18,7 @@ k - move up to previous line
 l - move right one character
 
 delete in command mode
+x - delete character under cursor
 dw - delete current word, or current word after cursor
 dd - delete current line
 
@@ -24,6 +28,7 @@ o - new line under current line, go to Insert mode
 exiting vi
 :q! - quit no write
 :w! - write file, modified or not
+:wq - write and quit (! forces?)
 ZZ - write file if modified, then exit
 :e! - edit current disk copy of file (eg abandon changes/reload)
 
