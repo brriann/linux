@@ -5,8 +5,17 @@ https://pubs.opengroup.org/onlinepubs/9699919799/utilities/vi.html
 (vi starts in Command mode)
 
 i - enter Insert mode
+v - enter Visual mode
 A - enter Append (to current line) mode
+a - append to current word
+R - replace mode (multiple characters), ESC to exit replace mode
+r<char> - replaces char under cursor, eg, rx - replace with x
+
 Esc - back to Command mode
+
+UNDO
+u - undo last command
+U - fix whole ine
 
 moving in command mode
 w - move to next word
@@ -20,7 +29,8 @@ l - move right one character
 delete in command mode
 x - delete character under cursor
 dw - delete current word, or current word after cursor
-dd - delete current line
+d$ - delete to end of line
+dd - delete current line (2dd - delete current and next linesjkkk)
 
 newline
 o - new line under current line, go to Insert mode
@@ -31,4 +41,76 @@ exiting vi
 :wq - write and quit (! forces?)
 ZZ - write file if modified, then exit
 :e! - edit current disk copy of file (eg abandon changes/reload)
+:w SOMEFILE - save work to SOMEFILE in current dir
+
+Operators and Motions
+many commands are <operator><motion>, eg, dw, d = delete operator, w = motion
+some motions:
+w - until start of next word (excluding first char)
+b - to start of previous word
+e - to end of current word (including last char)
+$ - to end of the line (including last char)
+
+Using ONLY motion will move cursor as specified
+
+Can use a COUNT for motion, eg, 2w, d3w
+
+Ctrl + G: show cursor location / file status
+G - move to end of file
+5G - move to line 5
+gg - move to first line
+
+COMMANDS
+p - put command, put previously delete text after cursor
+r - replace command, rx replaces char at cursor with 'x'
+
+OPERATORS
+c - change operator
+d - delete operator
+
+c$ - change rest of line
+
+SEARCH
+/ - search towards end of doc
+? - search towards top of doc
+/ phraseToSearch <ENTER>
+(after search: n / N find next occurrence in same/opposite direction)
+
+% - find matchin )]} (put cursor on opening ([{ )
+
+REPLACE
+:s/old/new <ENTER> - sub new for first old in line
+:s/old/new/g <ENTER> - sub new for all old in line
+:#,#s/old/new/g - sub btw 2 line #s
+:%s/old/new/g - sub all occurrences in file
+:%s/old/new/gc - 'c' asks for confirmation
+
+EXTERNAL COMMANDS
+:!ls - invokes ls just as if in shell prompt
+
+RETRIEVE/MERGE FILES
+:r SOMEFILE - retrieves disk file SOMEFILE and puts content below cursor
+:r !ls - reads output of ls command and puts output below cursor
+
+COPY PASTE TEST
+v - enter visual mode
+(move cursor to highlight text)
+y - yank (copy) highlighted
+(move cursor to destination)
+p - put/paste the text
+
+
+HELP
+F1, or :help <ENTER>
+Ctrl+W, Ctrl+W to toggle help/IDE windows
+:q - quit help window
+:help w
+:help user-manual
+
+~/.vimrc - vim config
+
+COMPLETION FOR : COMMANDS
+: + Ctrl-D
+-populates completion menu (filtered for any existing text, eg, :d vs :q)
+
 
