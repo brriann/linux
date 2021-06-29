@@ -1,0 +1,79 @@
+### History
+
+August 1991 - comp.os.minix post
+March 1994 - Linux kernal Version 1.0 
+
+Open vs Closed Source
+
+1985 - GNU Manifesto
+GNU's Not UNIX - opensource development of Linux
+
+GNU GPL General Public License
+
+###
+### OS Concepts
+###
+
+Kernel - hardware interface, memory allocation, CPU time allocation, program interop
+
+abstract hardware
+allocate resources to processes / manage resources
+system critical processes vs processes requested by users (OS-level vs user-level)
+user interface
+
+# Process management
+- create/delete/suspend/resume/synchronize/deadlock handling
+-process states:
+-- new, running, blocked/waiting, ready, terminated
+-sychronization of concurrent processes
+-- sharing of resources and data
+-- management of CPU time (fairness, policy, efficiency, response time, turnaround time, throughput)
+-- PID process identifier
+
+Main memory management
+- which processes are loaded into memory?
+- allocate/deallocate memory
+
+File management
+- create/delete files/directories
+- primitives to support files/directions
+- map files onto secondary storage
+- back up of files on stable storage
+
+I/O system management
+- read/write to hard disk. device driver handles specific device
+
+Secondary storage management
+- partitions, external storage
+- manage/allocate storage space
+- schedule requests for memory access
+
+Command interpreter system
+- aka, shells
+- get and execute user specified commands
+
+###
+### Linux OS Structure
+###
+
+Kernel - core of OS. controls CPU process scheduling
+
+System Call Interface SCI
+Process Management PM
+Virtual File System VFS 
+Memory Management MM
+Network Stack
+Arch
+Device Drivers DD
+
+Shell - command interpreter, brings Kernel instructions
+
+BASH - Bourne Again SHell ** most popular
+C Shell - C lang features
+KORN - expanded Bourne shell
+
+X Windows - GUI service 
+desktop env, window manager,  clients
+
+GNU Network Object Model Environment GNOME
+K Desktop Environment KDE
