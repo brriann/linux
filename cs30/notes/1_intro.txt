@@ -77,3 +77,40 @@ desktop env, window manager,  clients
 
 GNU Network Object Model Environment GNOME
 K Desktop Environment KDE
+
+###
+### Root User
+###
+
+root / superuser - has access to all commands and files on a *nix OS 
+
+root directory - /
+root users directory - /root 
+
+/home/nonrootuser - other users home directory
+
+root permissions - grant/revoke access permissions for other users
+
+rootkit - intruder installed, "get root" 
+
+root directory - filesystem tree, all branches off single directory
+
+UNIX, multi-user design, stemming from terminal + mainframe 
+
+UID - user identifer
+root has UID = 0
+
+echo $UID
+cat /etc/passwd | less
+
+fully empowered root user - DANGER
+
+processes started by root user have root privileges
+
+su, kdesu, sudo
+
+SYSTEM DIRECTORIES, moving files/directories in and out
+RPM (Red Hat Package Manager)
+
+script -a outputFile.txt
+(exit)
