@@ -1,0 +1,131 @@
+X Windows
+software + network protocol for GUI / input devices
+
+3 components of X Windows:
+
+X Server
+API for apps to draw graphics
+XFree86, X.org, Wayland
+
+Desktop Environment
+GNOME, KDE
+run on top of X, windowed desktop environment
+
+Window Manager
+sawfish, KWin
+runs on top of desktop environment
+controls appearance/display/movement of windows on the desktop
+
+Window Managers:
+Sawfish
+Enlightenment
+Ice (IceWM)
+WindowMaker
+FVWM
+
+XConfigurator, start X Windows automatically at startup
+
+startx command, start X Windows from cli
+
+###
+### BASIC COMMANDS
+###
+
+standard input, output, error
+
+< input redirection (other than keyboard)
+> output redirection (other than screen)
+
+avoid overwriting file:
+set -o noclobber
+
+turn off:
+set +o noclobber
+
+2> standard error redirection
+ls nofile 2> errorfile
+
+ls -l
+ls -l > myoutput
+cat myoutput
+
+ls noexist
+ls noexist 2> errorlog
+ls errorlog
+cat errorlog
+
+CAT, ECHO, AND REDIRECTION
+cat > footer.1
+type something (Ctrl + D)
+echo something else > footer.2
+cat footer.1 footer.2 > footer.3
+cat footer.3 >>> type something something else 
+
+ >> append output redirection (doesn't overwrite file contents)
+
+ SYSTEM INFO
+
+ uname, uname -a, -r, -v, -m, -p
+
+ BASH HISTORY
+
+ history command
+ HISTFILE env var
+ ~/.bash_history
+
+ !! - retrieves/executes last command
+ cat .bash_history
+ !2 - executes 2nd command entered after logging in
+
+ TAB COMPLETION
+ ls /e <TAB> --- auto completes to ls /etc
+
+ lear
+ 
+who - all logged in users
+whoami - info on user who executed 'whoami'
+
+ls
+ls -l, -a, -la
+
+ls /etc
+ls -a /etc | more
+
+COMMAND -OPTION ARGUMENT
+
+cal
+cal -y, -j, -m
+
+cmd1; cmd2; cmd3;
+whoami; ls; cal
+
+THE SHELL
+prompt, user interaction, command interpreter
+
+echo $SHELL >>> /bin/bash
+
+PROCESSES
+ps
+ps -aux
+
+TERMINAL
+
+tty >>> /dev/pts/0
+shows device name / filename of terminal
+
+MAN PAGES
+
+man ls, man cat, man grep, etc
+man man
+man -f grep
+man -k grep
+
+ls --help
+grep -- help
+
+HOWTO docs
+/usr/share/docs
+
+$ info
+
+LUGs - LINUX USER GROUPS
