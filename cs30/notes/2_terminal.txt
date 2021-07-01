@@ -67,6 +67,9 @@ cat footer.3 >>> type something something else
 
  uname, uname -a, -r, -v, -m, -p
 
+ env
+ printenv
+
  BASH HISTORY
 
  history command
@@ -112,6 +115,13 @@ TERMINAL
 
 tty >>> /dev/pts/0
 shows device name / filename of terminal
+
+set (set environment/shell variables)
+unset
+
+csh - c shell
+PS1 variable - prompt text
+
 
 MAN PAGES
 
