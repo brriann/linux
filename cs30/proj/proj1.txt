@@ -84,3 +84,17 @@ TERMINAL 2
  ### CHESS INSTALL
  ###
 
+ see chessinstall.txt
+
+ ###
+ ### CHESS - XBOARD CONNECTION
+ ###
+
+https://www.gnu.org/software/xboard/engine-intf.html
+
+xboard -fcp 'gnuchess --xboard'
+xboard -fd . -fcp './gnuchess --xboard'
+
+./xboard -fcp './gnuchess -x' -fd . -scp './gnuchess -x' -sd . -pieceImageDirectory 'svg' -matchMode T -tc 1
+
+sudo apt-get install libcanberra-gtk-module
