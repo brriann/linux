@@ -1,0 +1,86 @@
+xboard
+https://git.savannah.gnu.org/cgit/xboard.git
+https://savannah.gnu.org/projects/xboard/
+https://www.gnu.org/software/xboard/
+https://www.gnu.org/software/xboard/manual/xboard.html
+https://www.gnu.org/software/xboard/user_guide/UserGuide.html
+
+chess
+http://git.savannah.gnu.org/cgit/chess.git
+https://www.gnu.org/software/chess/
+https://www.gnu.org/software/chess/manual/gnuchess.html
+
+###
+### XBOARD INSTALL
+###
+
+TERMINAL 1
+
+ 1441  git clone https://git.savannah.gnu.org/git/chess.git
+ 1442  ls
+ 1443  pwd
+ 1444  cd che
+ 1445  cd chess
+ 1446  ls
+ 1447  cat README > more
+ 1448  cat README | more
+ 1449  ls INSTALL -l
+ 1450  cat INSTALL
+ 1451  cat INSTALL | more
+ 1452  cd ../xboard
+ 1453  ls
+ 1454  README
+ 1455  cat README | more
+ 1456  ls
+ 1457  cat INSTALL | morew
+ 1458  cat INSTALL | more
+ 1459  ls
+ 1460  cat Makefile.am
+ 1461  cat Makefile.am | more
+ 1462  history
+
+TERMINAL 2
+
+ 1411  cd dev/chess
+ 1412  ls
+ 1413  cat configure.ac
+ 1414  cd ../xboard
+ 1415  ls
+ 1416  ./autogen.sh
+ 1417  ./configure
+ 1418  ls
+ 1419  apt-get install autopoint
+ 1420  sudo apt-get install autopoint
+ 1421  ./autogen.sh
+ 1422  ./configure
+ 1423  sudo apt-get install automake
+ 1424  ./autogen.sh
+ 1425  ./configure
+ 1426  makeinfo
+ 1427  sudo apt install texinfo
+ 1428  ./configure
+ 1429  cairo
+ 1430  pangocairo
+ 1431  sudo apt-get install libcairo2-dev
+ 1432  sudo apt-get install libpango1.0-dev
+ 1433  sudo apt-get install librsvg-2.0
+ 1434  ./configure
+ 1435  sudo apt-get install librsvg2-bin
+ 1436  ./configure
+ 1437  sudo apt-get install libcairo2-dev librsvg2-dev
+ 1438  ./configure
+ 1439  sudo apt-get install gtk2.0
+ 1440  ./configure
+ 1441  make
+ 1442  make check
+ 1443  make install
+ 1444  sudo make install
+ 1445  man xboard
+ 1446  man xboard | more
+ 1447  xboard
+
+
+ ###
+ ### CHESS INSTALL
+ ###
+
