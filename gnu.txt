@@ -1,4 +1,37 @@
-GNU projects to look into:
+GNU projects
+
+lightning
+http://git.savannah.gnu.org/cgit/lightning.git
+https://www.gnu.org/software/lightning/manual/lightning.html
+
+libmatheval
+http://git.savannah.gnu.org/cgit/libmatheval.git
+https://www.gnu.org/software/libmatheval
+https://www.gnu.org/software/libmatheval/manual/libmatheval.html
+
+gsl
+git://git.savannah.gnu.org/gsl.git
+https://www.gnu.org/software/gsl/doc/html/index.html
+https://www.gnu.org/software/gsl/
+
+xboard
+https://git.savannah.gnu.org/cgit/xboard.git
+https://savannah.gnu.org/projects/xboard/
+https://www.gnu.org/software/xboard/
+https://www.gnu.org/software/xboard/manual/xboard.html
+https://www.gnu.org/software/xboard/user_guide/UserGuide.html
+
+chess
+http://git.savannah.gnu.org/cgit/chess.git
+https://www.gnu.org/software/chess/
+https://www.gnu.org/software/chess/manual/gnuchess.html
+
+spacechart
+http://savannah.gnu.org/cvs/?group=spacechart
+https://www.gnu.org/software/spacechart/
+https://www.gnu.org/software/spacechart/spacechart.html
+
+GNU projects to look at:
 
 tar
 spacechart
