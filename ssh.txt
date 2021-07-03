@@ -7,3 +7,11 @@ netstat -plant | grep :22
 systemctl enable ssh
 systemctl start ssh
 systemctl status ssh
+
+(CLIENT)
+
+ssh name@remote 
+
+scp name@remote:/remote/file /local/dest
+
+scp /local/file name@remote:/remote/dest
