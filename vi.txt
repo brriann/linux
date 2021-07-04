@@ -2,6 +2,8 @@
 >> vimtutor
 https://pubs.opengroup.org/onlinepubs/9699919799/utilities/vi.html
 https://vim.rtorr.com/
+https://www.youtube.com/watch?v=IiwGbcd8S7I
+https://linuxconfig.org/vim-tutorial
 
 (vi starts in Command mode)
 

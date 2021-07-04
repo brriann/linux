@@ -1,6 +1,7 @@
 vi / vim
 Command mode
 ESC
+: - ex commands
 
 Input Mode
 INSERT x 1 (insert mode)
@@ -12,18 +13,21 @@ Ctrl + J Input Mode char: NEWLINE
 INSERT x 2 (replace/overtype mode)
 
 Changing Input Modes
-i - insert mode at cursor
+i - insert mode at before cursor
 I - insert mode at line beginning
-a - append mode at cursor
+a - append mode at after cursor
 A - append mode at line end
 
 :set nu - set line numbers
+:set number
+:set nonumber
 
 Save File
 :w - newfile
 
 u - undo last change
 x - delete char at cursor
+dd - delete current line
 
 Quit Vim
 :q - quit
@@ -73,3 +77,15 @@ cw, ce - delete to end of word
 cb - delete to beginning of word
 c$ - delete to end of line
 
+/pattern -  search forwards for pattern
+?pattern - search backwards for pattern
+n - go to next occurrence
+N - go to prev occurrence
+
+G - end of document
+1G - beginning of document
+
+:1,$ s/2002/1776/g
+-regex, replace 2002 with 1776
+
+:1,$d - delete all lines from 1-$
