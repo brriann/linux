@@ -1,0 +1,75 @@
+vi / vim
+Command mode
+ESC
+
+Input Mode
+INSERT x 1 (insert mode)
+- insert text mode i/I
+- append text mode a/A
+
+Ctrl + J Input Mode char: NEWLINE
+
+INSERT x 2 (replace/overtype mode)
+
+Changing Input Modes
+i - insert mode at cursor
+I - insert mode at line beginning
+a - append mode at cursor
+A - append mode at line end
+
+:set nu - set line numbers
+
+Save File
+:w - newfile
+
+u - undo last change
+x - delete char at cursor
+
+Quit Vim
+:q - quit
+:q! - (leave without saving)
+:w - write file
+:wq - write quit
+:wq! - write quit
+
+hjkl - LDUR
+
+w - skip forward by word
+b - skip backward by word
+e - skip to end of current word
+
+o - new line below current
+O - new line above current
+
+Ctrl + U - move up 1/2 screen
+Ctrl + D - move down 1/2 screen
+Ctrl + B - move up screen
+Ctrl + F - move down screen
+
+:1 - move to first line of file
+:$ - move to end of file
+
+^ - move to start of current line
+$ - move to end of current line
+
+Line/Word/Character movement keys
+-can be combined with a number
+
+6w - skip forward by 6 words
+5k, 5j, 3h, 3l
+4w, 3b
+
+Arrow Keys - move
+HOME - start of current Line
+END - end of current line
+
+PAGEUP - previous screen
+PADEDOWN - next screen
+
+Replace Input
+r - replace char at cursor
+R - replace until ESC
+cw, ce - delete to end of word
+cb - delete to beginning of word
+c$ - delete to end of line
+

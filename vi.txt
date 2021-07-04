@@ -1,6 +1,7 @@
 >> vi myFile.cpp
 >> vimtutor
 https://pubs.opengroup.org/onlinepubs/9699919799/utilities/vi.html
+https://vim.rtorr.com/
 
 (vi starts in Command mode)
 
