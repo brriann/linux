@@ -1,0 +1,29 @@
+process - represents running program
+process - address space, kernel data structures
+thread - execution context in a process
+
+systemd - PID = 1. ancestor of all processes except some created by kernel
+
+process components
+PID
+PPID (parent ID)
+niceness (scheduling)
+
+process lifecycle
+fork
+exec
+wait
+
+signals - process-level interrupts
+
+kill
+ps
+ps aux
+ps lax
+top
+
+/proc filesystem
+man proc
+
+cron - periodic processes
+

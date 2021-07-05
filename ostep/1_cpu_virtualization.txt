@@ -1,0 +1,52 @@
+### Ch. 4 Process Abstraction
+
+process - abstraction of running program
+CPU virtualization
+time/space sharing
+
+machine state of a process
+-memory/address space
+-registers
+--PC program counter / IP instruction pointer
+--stack pointer/frame pointer, function params, local vars, return addresses
+-I/O information, persistent storage, open files
+
+Process API
+create, destroy, wait, status, misc control
+
+Process Creation
+-load code/static data from disk into memory
+-allocate memory for run-time stack and heap
+-I/O setup
+-jump to main(), CONTROL OF CPU GIVEN TO PROCESS
+
+Process states
+running, ready, blocked
+(scheduling/descheduling)
+
+Process List of an OS
+-register context of a stopped process
+
+### Ch. 5 Process API
+
+system calls
+
+fork()
+- almost exact copy child process created
+
+exec()
+- run other commands in a child process
+-exec family of commands
+
+wait()
+-parent process waits for child to complete
+
+fork & exec
+-splitting them allows Unix shell to run code after fork but before exec
+--environment of soon-to-be-run code can be altered
+
+pipe()
+- connect two processes, stdOutA = stdInB
+
+kill()
+- send SIGNALS to a process (to interrupt/stop)
