@@ -1,0 +1,137 @@
+Filesystem
+-abstracts which drive a file is located on
+-directories, files, devices (disk, keyboard, screen) are all seen as FILES
+
+pathnames 
+full
+/ root dir
+/some/dir/file
+
+partial
+childFile
+childDir/file
+
+home dir
+$HOME
+~
+/home/brian
+
+current working directory
+pwd
+.
+
+parent dir
+..
+
+cd -- takes you to home dir or ~
+
+cd someOtherDir
+
+cd .. 
+cd ../..
+
+ls
+ls -F (dirs have a slash added to name)
+ls -l
+ls -a
+ls -R (recursively ls subdir's)
+ls -ld (info about dir itself, NOT contents)
+
+view contents of file
+cat
+file
+head
+less
+more
+tail
+wc -option
+
+grep - search files for patterns
+grep pattern filename
+
+
+sort file contents
+sort
+
+sort /etc/passwd (goes to stdout)
+sort inputFile > outputFile
+sort -r REVERSE
+sort -u (NO DUPLICATES)
+
+sort using field keys
+
+sort -t : -k 5,5 /etc/passwd
+sort -t : -k 3,4 /etc/passwd
+
+sort many files:
+cat file1 file2 file3 | sort > outfile
+sort -m file1 file2 file3 > outfile (each input file must be sorted)
+
+cut and merge files
+cut -c[char pos] filename
+cut -f[fields] -d[field seperator] filename
+
+cut -d: -f5 /etc/passwd (get all column 5)
+
+cut -d: -f5 /etc/passwd > ~/users_list
+cut -d: -f6 /etc/passwd > ~/users_home_list
+
+cat ~/users_list ~/users_home_list (in file order)
+
+paste ~/users_list ~/users_home_list (2 input files are treated as columns or fields in the output file)
+
+copy and move files
+cp file1 destpath  (dest path can include new name or just be a dir)
+
+cp -R dirToCopy/ newDir/
+
+move/rename
+mv oldName newName
+
+rm
+echo
+
+bzip2
+bunzip2
+bzcat
+
+gzip
+gunzip
+gcat
+
+tar
+
+which
+whereis
+mlocate
+
+uniq (removes duplicate lines from a file)
+diff (compares two files)
+
+todos
+fromdos
+
+chmod
+
+wc (line/word/character)
+
+sort
+-r
+-n
+-k colNum
+-t delim
+-c checks if pre-sorted
+
+TRANSLATE / TRANSFORM
+tr
+tr set1 set2 (from set1 to set2)
+tr [:lower:] [:upper:]
+tr [a-z] x
+tr [a-zA-Z] x
+tr --delete o
+tr --delete " "
+tr --delete [:blank:]
+echo hellooooo | tr --squeeze-repeats o
+echo hhhhhellooooo | tr --squeeze-repeats [oh]
+echo my foot | tr o x (my fxxt)
+echo my foot | tr mo tx (ty fxxt)
