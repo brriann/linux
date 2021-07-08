@@ -1,0 +1,150 @@
+### types of text editors
+line editors: ex, ed
+screen editors: vi, emacs
+stream editor: sed
+
+vi is visual mode of the underlying ex line editor
+many : commands in vi come from ex roots
+
+stream editor: non-interactive, stream-oriented
+
+ex filename
+address1,address2 command
+
+1 (prints line 1)
+1,3 (prints lines 1-3)
+
+symbols as shorthand for line addresses:
+. current line
+$ last line
+% every line of the file
+:1,.d
+:5,$d
+
+:set nu (set line numbers)
+
++/- relative addresses
+
+:+5d (delete next 5 lines)
+
+/search pattern
+
+/pattern1/,/pattern2/
+
+/sun/d (delete next line containing 'sun')
+/sun/,/moon/d (delete from first line containing sun to first line containing moon)
+
+###
+### EX COMMANDS
+###
+
+w WRITE
+1,10w myFile (write lines to myFile)
+30,$w >>myFile (append lines to myFile)
+
+r READ
+:100r /home/brian/data (read data file INTO open file, at line 100)
+
+m MOVE
+:160,224m23 (move lines 160-224 to line 23)
+
+co COPY
+:23,29co100 (copy lines 23-29 to line 100)
+
+s SUBSTITUTE
+:s/old/new (on current line)
+:s/old/new/g (globally)
+
+:50,100s/old/new/g (replace from lines 50-100)
+
+:%s/old/new/g (whole file, % and g seem redundant)
+
+/gc - global CONFIRM pattern substitute
+
+search pattern metacharacters (regex-y)
+. - match any single char except newline
+* match zero of more of preceding character eg #* matches #, ##, ###, or ' '
+^ start of line
+$ last word in line
+\ escape character
+[ ] - brackets enclose a set of characters [a,b,c] [a-z]
+\< \> - match chars at beginning/end of word
+
+###
+### sed stream editor
+###
+
+each line of input copied to a pattern space in memory
+all editing commands are applied globally to each line, UNLESS restricted by line address references
+    (vs ex, which no line address = current line only)
+original input is not changed
+edits only apply to the COPY of original, in pattern space
+copy is sent to standard output, and can be redirected with >
+
+sed -n -e 'command' inFile
+
+sed commands:
+[address1,address2] [!] command [arguments]
+
+arguments/flags:
+n number, only this occurrence will be replaced
+g global, replace every occurrence on each line, instead of default first occurrence on each line
+p display line if replacement was made
+w write just the changes to a specified file
+
+sed 's/sun/moon/gw changes' myfile
+sed '1,4!s/sun/moon/g' myfile
+sed 's/sun/moon/10' myfile > newfile
+
+sed '4,5d' myfile
+sed '/sun/d' myfile
+sed '/sun/, /moon/d' myfile
+
+###
+### grep pattern matcher
+###
+
+. any single char br.an
+.* any number of any char
+^ beginning of a line ^W
+$ end of a line 4$
+[] [-] sets of chars [a-zA-Z], [a,b,c]
+\ escape - interpret next char literally \^
+
+ls -a | grep someSearchTerm
+
+find 
+
+cut (cut out selected cols/fields in specified files)
+
+cut -d: -f1,5 /etc/passwd
+who | cut -d" " -f1
+
+cut -f4 file1 | paste - file1
+
+tr (translate)
+
+tr 'A-Z' 'a-z' myfile
+tr -d 'The End.' myfile
+
+chmod u+x newScriptFile (user, you, the owner/creator)
+chmod g+x newScriptFile (your group)
+chmod o+x newScriptFile (others, not in your group)
+
+ls -l
+
+./newScriptFile
+
+file newScriptFile
+
+The output displays each file in your home directory and its type. Some of the possible types include:
+directory
+ASCII text
+ASCII English text
+Berkely DB
+very short file (no magic) --this one means that file does not have information on whatever type this file is
+Bourne shell script text executable
+empty (nothing in the file)
+symbolic link
+
+
