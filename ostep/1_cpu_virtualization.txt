@@ -1,4 +1,6 @@
+###
 ### Ch. 4 Process Abstraction
+###
 
 process - abstraction of running program
 CPU virtualization
@@ -27,7 +29,9 @@ running, ready, blocked
 Process List of an OS
 -register context of a stopped process
 
+###
 ### Ch. 5 Process API
+###
 
 system calls
 
@@ -50,3 +54,53 @@ pipe()
 
 kill()
 - send SIGNALS to a process (to interrupt/stop)
+
+###
+### Ch. 6 - Mechanism, Limited Direct Execution
+###
+
+time sharing to virtualize CPU
+processor modes - user vs kernel
+system calls
+"trapping into" kernel and "return from trap" back into user mode process
+kernel stack
+
+switching between processes
+cooperative - OS regains control during system calls
+non-coop : OS takes control on timer interrupts
+
+context switch: OS saves register values for current process onto kernel stack
+
+###
+### Ch. 7 - Scheduling Intro
+###
+
+scheduling policies
+workload assumptions
+scheduling metrics
+    turnaround time
+    fairness
+        (Jain's Fairness Index)
+
+FIFO / FCFS
+    neg: convoy effect
+
+SJF (shortest job first)
+    (job length is not usually known)
+
+STCF (shortest time to completion first)
+    preemptive SJF (preempt = stop job A, run job B, continue job A later)
+
+scheduling metrics part 2
+    response time
+
+Round Robin
+    run jobs for a time slice, then switch
+    amortize cost of switching with longer slices
+
+TRADEOFF:
+Fair & good response time vs Unfair & good turnaround time
+
+Overlap operations with I/O --- run Process B while Process A is waiting for I/O
+
+predict future using recent past: multi-level feedback queue
