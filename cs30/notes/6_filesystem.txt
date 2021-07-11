@@ -1,0 +1,123 @@
+all of the following are seen/represented as files:
+- directories
+- ordinary files
+- devices (printers, disk drives, etc)
+- I/O (keyboard/terminal screen)
+
+hardware details (eg, which exact disk drive a file is on) are hidden
+
+/bin and /usr/bin : program files (executables)
+
+dotfiles: .name 
+
+avoid characters in filenames:
+* / ? " ' [ ]
+
+home directory
+/home/username
+- current working directory upon login
+
+/ root
+/bin - software/commands
+/dev - peripheral devices
+/etc - admin files
+/home - users home dirs
+/tmp - temporary files
+/usr - man pages, user-level software/commands
+/var - files that change frequently (eg. logs)
+
+can mount devices eg disk drives to directory of choice
+
+ls -l
+drwxr-xr-x (d, directory)
+vs
+-rwxr-xr-x (-, file)
+
+absolute vs relative pathnames
+
+absolute starts at / (root)
+
+relative starts in current working directory
+
+mkdir relativename
+mkdir /home/username/absolutename
+
+~  home directory (/home/youruser)
+. current working directory
+.. parent directory
+pwd print working directory
+
+ls . (aka,.... ls)
+ls ..
+ls ~
+ls /
+
+
+###
+### inode
+###
+
+filesystem has 2 parts: metadata and data
+metadata - filename, date modified, owner, permissions
+
+Inodes store this metadata, and info about where data is located on storage media
+
+inode represented as an integer (array of file locations), integer = index
+
+fixed number of inodes, extents, dynamic inode allocation
+
+ls -il, -i = view inode (integer values)
+
+POSIX compliance = certain file attributes are required
+
+-The size of the file in bytes
+-Device ID
+-User ID of the file
+-Group ID of the file
+-The file mode that determines the file type and how the owner, group, and others (world) can access the file
+-Additional system and user flags to further protect the file (note: this can be used limit the files use and modification)
+-Timestamps telling when the inode itself was last change (ctime, changing time), the file content was last modified (mtime or modification time), and when the file was last accessed (atime or access time)
+-A link counter that lists how many hard links point to the inode
+-Pointers to the disk blocks that store the file’s contents
+
+Inode pointer structure
+- data structure in the inode that lists the blocks (or data blocks) associated with the file
+-most modern file systems have 15 pointers in the data structure
+
+Twelve points that directly point to blocks containing the data for the file. These are called direct pointers.
+One single indirect pointer. This pointer points to a block of pointers that point to blocks containing the data for the file.
+One doubly indirect pointer. This pointer points to a block of pointers that point to other blocks of pointers that point to blocks containing the data for the file.
+One triply indirect pointer. This pointer points to a block of pointers that point other blocks of pointers that point to other blocks of pointers that point to blocks containing the data for the file.
+
+Direct, Indirect, Doubly Indirect, Triply Indirect pointers
+
+file system types
+
+ext3 (all inodes created when file system is created)
+ext4 (create inodes as needed)
+xfs (create inodes as needed)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
