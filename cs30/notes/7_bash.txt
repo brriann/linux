@@ -1,0 +1,54 @@
+###
+### Shell Customization
+###
+
+Bash = Bourne Again Shell
+-command interpreter
+commands take arguments: options and parameters
+options: preceded by -, customize how the command works
+parameters: used by command as input
+
+SHELL METACHARACTERS
+
+* string wildcard - any number (including 0) of characters in a filename
+? (character wildcard) - any single character in a filename
+.??* - all dot files (hidden) that contain at least 2 characters in name
+[] - character set , any single character found within brackets
+rc[15].d - matches rc1.d, rc5.d
+[-] - character range
+{} - string set, any single string found within brackets
+{apple, banana} - match either one
+
+ENVIRONMENT VARIABLES
+
+PATH:directories where shell is to look for commands
+TERM: the terminal code for your monitor
+USER: your user name
+PWD: your current working directory
+MAIL: pathname of your system mailbox
+SHELL: pathname of your shell
+
+echo $HOME
+
+LOCAL VARIABLES
+-local to shell instance.  have not been exported yet.
+SOMEVAR=somevalue
+echo $SOMEVAR
+export SOMEVAR
+env (can now view SOMEVAR - it's exported, no longer local)
+
+###
+### Concurrent Processes
+###
+
+
+
+###
+### Bash Hello World Script
+###
+
+
+
+###
+### Bash Script Writing Basics
+###

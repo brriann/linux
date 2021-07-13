@@ -1,0 +1,83 @@
+###
+### awk
+###
+
+
+
+###
+### cut
+###
+
+
+
+###
+### paste
+###
+
+
+
+###
+### sed
+###
+
+sed 's/\([0-9]\) \([-]\)/\1~\2/' work1.txt
+sed 's/\([-]\) \([-0-9a-zA-Z]\)/\1~\2/' work1.txt
+sed 's/\([-0-9a-zA-Z]\) \([\[]\)/\1~\2/' work1.txt
+sed 's/\([[:space:]]\)\("GET\)/~\2/' work1.txt
+sed 's/\("\) \([0-9]\)/\1~\2/' work1.txt
+sed 's/\([0-9]\) \([0-9]\)/\1~\2/' work1.txt
+sed 's/\([0-9]\) \("\)/\1~\2/' work1.txt
+sed 's/\("\) \("\)/\1~\2/' work1.txt
+
+sed 's/\([0-9]\) \([-]\)/\1\t\2/' work1.txt
+sed 's/\([-]\) \([-0-9a-zA-Z]\)/\1\t\2/' work1.txt
+sed 's/\([-0-9a-zA-Z]\) \([\[]\)/\1\t\2/' work1.txt
+sed 's/\([[:space:]]\)\("GET\)/\t\2/' work1.txt
+sed 's/\("\) \([0-9]\)/\1\t\2/' work1.txt
+sed 's/\([0-9]\) \([0-9]\)/\1\t\2/' work1.txt
+sed 's/\([0-9]\) \("\)/\1\t\2/' work1.txt
+sed 's/\("\) \("\)/\1\t\2/' work1.txt
+
+MAIN COMMAND
+sed -f sedcommands weblog.txt > sedout
+
+QC IN TERMINAL:
+
+cut -f1 sedout | more
+cut -f2 sedout | more
+cut -f2 sedout | grep [a-zA-Z0-9]
+cut -f3 sedout | grep [a-zA-Z0-9]
+cut -f4 sedout | more
+cut -f5 sedout | more
+cut -f6 sedout | more
+* here, there were problems with column 7's containing dash.
+* all were of the form 304 - "http://....".
+* this sed command fixed that error in place:
+sed -i 's/\(304\) \(-\)/\1\t\2/' sedout
+* confirmed fix with:
+cut -f6 sedout | grep [a-zA-Z]
+cut -f7 sedout | more
+* here, there were problems with column 7's containing dash.
+* this sed command fixed that error in place:
+sed -i 's/\(-\) \("http\)/\1\t\2/' sedout
+* confirmed fix with:
+cut -f7 sedout | grep [a-zA-Z]
+cut -f8 sedout | more
+cut -f9 sedout | more
+
+###
+### sort
+###
+
+
+
+###
+### tr
+###
+
+Strategy
+1. replace all spaces with tabs using sed
+- this will allow field/column commands to be used in later steps
+
+2. 
+
