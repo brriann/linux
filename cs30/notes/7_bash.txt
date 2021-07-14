@@ -20,7 +20,10 @@ rc[15].d - matches rc1.d, rc5.d
 {apple, banana} - match either one
 
 ENVIRONMENT VARIABLES
-
+env
+set --help
+HOSTTYPE: arm, i386
+HISTSIZE: history size?
 PATH:directories where shell is to look for commands
 TERM: the terminal code for your monitor
 USER: your user name
@@ -37,18 +40,268 @@ echo $SOMEVAR
 export SOMEVAR
 env (can now view SOMEVAR - it's exported, no longer local)
 
+PS1 - primary shell prompt
+PWD- current working directory
+SECONDS - since starting shell
+somevar=somevalue
+somevar='some white space value'
+somevar='* mask special chars *'
+
+' single quote is a powerful metacharacter. it blocks shell interpretation.
+
+echo "$HOME will be interpreted"
+echo '$HOME will not be interpreted'
+
+life of a variable = the life of the shell process it was created on
+unset VARIABLETOREMOVE
+
+CUSTOMIZING THE SHELL ENV
+
+alias aliasname=value
+alias aliasname='value'
+
+alias mm='cat /etc/passwd | grep root'
+
+OLDPROMPT=$PS1
+PS1="some new prompt-> "
+PS1=$OLDPROMPT
+
+
 ###
 ### Concurrent Processes
 ###
 
+multitasking - processes running concurrently "at same time", sharing CPU resources
+
+program = set of instructions
+command residing on system = a program (eg, ls)
+
+process = 'a program in execution'
+-processes have UIDs (PID), and exist until tasks completed. then the process terminates
+
+& - run command, with process in background
+sleep 50 (blocks shell)
+sleep 50& (doesn't block shell)
+ps aux
+
+jobs command
+jobs table - user processes running in background
+
+jobs (background processes) run simultaneously
+processor swaps execution between the different jobs
+
+There are four possibilities for the status of a job:
+Running: an active job
+Stopped: a job that has been suspended
+Terminated: a job that has been killed
+Done: a completed job
+
+kill -9 %<JOBID, eg 1>
+kill -9 %2
+
+fg %<JOBID> - bring job to foreground
+
+Ctrl+Z : suspend a process in foreground
+Ctrl+C : kill a process in foreground
 
 
 ###
 ### Bash Hello World Script
 ###
 
+#!/bin/bash
+echo Hello World
+
+line 1 - shbang - indicates which program to use to run the file
+
+chmod +x hello.sh
+./hello.sh
+
+whereis bash - put output after #!
 
 
 ###
 ### Bash Script Writing Basics
 ###
+
+#!/bin/bash - indicates script should run in bash shell, no matter which interactive shell user invoking script is using
+
+# bash shell script comment
+
+X="variable assignment"
+$X # variable use
+
+don't leave spaces around equal sign.
+
+variables are expanded inside double quotes, but NOT inside single quotes
+
+#!/bin/bash
+X=""
+if [ -n $X ]; then 	# -n tests to see if the argument is non empty
+	echo "the variable X is not the empty string"
+fi
+
+>> the variable X is not the empty string (need to wrap variable name in double quotes!)
+
+vs
+
+#!/bin/bash
+X=""
+if [ -n "$X" ]; then 	# -n tests to see if the argument is non empty
+	echo "the variable X is not the empty string"
+fi
+
+>> no output. $X expanded to "" value. if -n check doesn't pass
+
+#!/bin/bash
+LS="ls"
+LS_FLAGS="-al"
+
+$LS $LS_FLAGS $HOME
+
+#!/bin/bash
+X=ABC
+echo "${X}abc"
+
+>> abcabc
+
+CONDITIONALS IF THEN / EFLIF / ELSE
+
+if condition
+then
+	statement1
+	statement2
+	..........
+fi
+
+
+
+if condition
+then
+	statement1
+	statement2
+	..........
+else
+	statement3
+fi
+
+
+if condition1
+then
+	statement1
+	statement2
+	..........
+elif condition2
+then
+	statement3
+	statement4
+	........    
+elif condition3
+then
+	statement5
+	statement6
+	........    
+
+
+fi
+
+(commands can go in the place of conditions - and block will execute if the command returns exit status of 0)
+
+TEST COMMAND / OPERATORS
+
+test operand1 operator operand2
+
+[ operand1 operator operand2 ]
+
+if [ $X -lt $Y ]	# is $X less than $Y ? 
+
+if [ -n "$empty_string" ]; then
+
+if [ -e "${HOME}/.fvwmrc" ]; then 	
+
+if [ -L "${HOME}/.fvwmrc" ]; then 		# is it a symlink ?  
+elif [ -f "${HOME}/.fvwmrc" ]; then 	# is it a regular file ?
+
+operator	produces true if...	    number of operands
+-n	        operand non zero length	1
+-z	        operand has zero length	1
+-d	        there exists a directory whose name is operand	1
+-f	        there exists a file whose name is operand	1
+-eq	        the operands are integers and they are equal	2
+-neq	    the opposite of -eq	2
+=	        the operands are equal (as strings)	2
+!=	        opposite of =	2
+-lt	        operand1 is strictly less than operand2 (both operands should be integers)	2
+-gt	        operand1 is strictly greater than operand2 (both operands should be integers)	2
+-ge	        operand1 is greater than or equal to operand2 (both operands should be integers)	2
+-le	        operand1 is less than or equal to operand2 (both operands should be integers)	2
+
+
+LOOPS (FOR and WHILE)
+
+#!/bin/bash
+for X in red green blue
+do
+	echo $X
+done
+
+#!/bin/bash
+colour1="red"
+colour2="light blue"
+colour3="dark green"
+for X in "$colour1" $colour2" $colour3" # quotes protecting against embedded spaces
+do
+	echo $X
+done
+
+REMINDER: shell expands string containing * to all filenames that match the pattern
+* matches all files in current working directory
+
+echo *
+lists all the files and directories in the current directory.
+
+echo *.jpg
+lists all the jpeg files.
+
+echo ${HOME}/public_html/*.jpg
+lists all jpeg files in your public_html directory.
+
+#!/bin/bash
+for X in *.html
+do
+		grep -L '<UL>' "$X"
+done
+
+WHILE LOOPS
+
+#!/bin/bash
+X=0
+while [ $X -le 20 ]
+do
+	echo $X
+	X=$((X+1))
+done
+
+COMMAND SUBSTITUTION
+enables you to take the output of a command and treat it as though it was written on the command line
+
+ For example, if you want to set the variable X to the output of a command, the way you do this is via command substitution.
+
+There are two means of command substitution: brace expansion and backtick expansion.
+
+Brace expansion workls as follows: $(commands) expands to the output of commands This permits nesting, so commands can include brace expansions
+
+Backtick expansion expands `commands` to the output of commands
+
+#!/bin/bash
+files="$(ls)"
+web_files=`ls public_html`
+echo "$files"      # we need the quotes to preserve embedded newlines in $files
+echo "$web_files"  # we need the quotes to preserve newlines 
+X=`expr 3 \* 2 + 4` # expr evaluate arithmatic expressions. man expr for details.
+echo "$X"
+
+The advantage of the $() substitution method is almost self evident: it is very easy to nest.
+
+expr command
+man expr

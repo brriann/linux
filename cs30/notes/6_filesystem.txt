@@ -101,6 +101,9 @@ ext4 (create inodes as needed)
 xfs (create inodes as needed)
 
 
+ls -lai 
+HARD LINKS - have same inode number
+SYM LINKS - have different inode number, but have a file1 -> file2 component
 
 
 
