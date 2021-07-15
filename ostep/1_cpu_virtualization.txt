@@ -104,3 +104,21 @@ Fair & good response time vs Unfair & good turnaround time
 Overlap operations with I/O --- run Process B while Process A is waiting for I/O
 
 predict future using recent past: multi-level feedback queue
+
+###
+### Ch. 8 - Scheduling, Multi-Level Feedback Queue
+###
+
+
+
+###
+### Ch. 9 - Scheduling, Proportional Share
+###
+
+
+
+###
+### Ch. 10 - Multiprocessor Scheduling (Advanced)
+###
+
+TODO - circle back to this after concurrency section

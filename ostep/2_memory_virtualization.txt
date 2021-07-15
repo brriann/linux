@@ -1,1 +1,52 @@
-todo
+
+###
+### Ch. 13 - Abstraction: Address Spaces
+###
+
+
+
+###
+### Ch. 14 - Memory API
+###
+
+
+
+###
+### Ch. 15 - Mechanism, Address Translation
+###
+
+
+
+###
+### Ch. 16 - Segmentation
+###
+
+
+
+###
+### Ch. 
+###
+
+
+
+###
+### Ch. 
+###
+
+
+
+###
+### Ch. 
+###
+
+
+
+###
+### Ch. 
+###
+
+
+
+###
+### Ch. 
+###
