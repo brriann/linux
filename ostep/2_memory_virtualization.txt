@@ -3,23 +3,136 @@
 ### Ch. 13 - Abstraction: Address Spaces
 ###
 
+-------------------------------------------
+Program Code
+-------------------------------------------
+Heap (dynamically-allocated, user-managed memory)
+ |
+\ / HEAP GROWS DOWN
+-------------------------------------------
+/ \ STACK GROWS UP
+ |
+Stack (track location in function call chain, allocate local variables, pass parameters and return values to/from routines)
+-------------------------------------------
 
+Goals:
+transparency - process shouldn't be aware of the fact that memory is virtualized
+efficiency - time and space, no shit
+protection - isolation of memory, no inter-process address space access
+
+Process are NOT aware of their physical address space.  They are aware of a virtual address space.
+OS and hardware cooperate to translate virtual address space to physical address
 
 ###
 ### Ch. 14 - Memory API
 ###
 
+Stack memory - allocations/deallocations handled implicitly by compiler
+(Stack = automatic memory)
+int x;
 
+Heap memory - alloc/dealloc handled by programmer
+int *x = (int *) malloc(sizeof(int));
+
+malloc() - ask for size on heap. pointer to newly-allocated space is returned
+
+free() - takes pointer
+
+segmentation fault - forgot to allocate memory?
+buffer overflow - didn't allocate enough memory?
+uninitialized read - forgot to initialize allocated memory?
+memory leak - forgot to free memory?
+dangling pointer - freed memory before you were done with it?
+double free / invalid free - multiple calls to free, calling free on some non-pointer value
+
+TWO LEVELS OF MEMORY MANAGEMENT (aka, why no memory leaks from an exited process)
+1. OS level memory management - memory handed to processes when run, and retrieved when process exits/dies
+2. Memory management within Process - within Heap when malloc() and free() are called
+
+MEMORY MGMT TOOLS
+-purify
+-valgrind ****
+
+system calls within malloc() and free()
+-brk - location of program's "break", aka, end of Heap
+-sbrk - increments
+
+mmap() - obtain memory from OS, anonymous memory region "swap space", not associated with any file
+- this space can be managed like a Heap
 
 ###
 ### Ch. 15 - Mechanism, Address Translation
 ###
 
+hardware-based address translation
+OS and hardware cooperate to translate and manage memory
+
+ILLUSION: each program has its own private memory, where its own code and data reside
+REALITY: programs share memory, as CPUs switch between running programs
+
+simple idea: BASE AND BOUNDS, or DYNAMIC RELOCATION
+- 2 hardware registers, Base Register and Bounds/Limit Register
+- OS sets Base Register "where in memory this program's address space will be located"
+** physical address = virtual address + base
+
+MMU in a CPU (Memory Management Unit)
+
+CPU instructions to set base/bounds registers are privileged / kernel level
+
+CPU generates EXCEPTIONS when a Process attempts access outside of its bounded address space
+
+DATA STRUCTURE: FREE LIST - when new Process is created, OS must search for new address space
+-Free List consists of open memory segments
+-Free List is searched/removed from by OS on Process Start, and re-populated by OS on Process Exit/Kill
+
+When Process stops running:
+-OS must save base/bounds register values to memory, in a per-process structure
+PROCESS STRUCTURE OR PCB, PROCESS CONTROL BLOCK
+
+While Process is stopped, OS can update its base/bounds saved register values to change address space
+-on startup, Process will continue as normal, unaware of change
+
+Problem: Internal Fragmentation. lots of wasted space INSIDE an Address Space, between a Stack and Heap!
 
 
 ###
 ### Ch. 16 - Segmentation
 ###
+
+Segmentation: generalized base and bounds
+
+- base and bounds pair PER logical segment of address space (Program Code, Heap, Stack)
+
+Segmentation Fault - out of bounds memory access
+
+Question: what Segment are we in?
+EXPLICIT SEGMENT DEFINITION: Segment, Offset
+IMPLICIT: hardware notices how address was formed - from program counter? from stack/base pointer? else = Heap
+
+STACK GROWS BACKWARDS
+- more hardware support - bit, for "which way does a Segment grow"
+
+SUPPORT FOR CODE SHARING
+- code sharing between programs - memory is shared
+- protection bits: mark memory segment as read-only
+
+Fine-Grained vs Coarse-Grained Segmentation
+Coarse = Code/Heap/Stack
+Fine = more granular
+
+SEGMENT TABLE - stored in memory to support many segments
+
+OS SUPPORT
+- on a context switch, OS must save/restore segment registers
+- when creating new address space, OS must find space in physical memory for its segments
+
+External Fragmentation / Non-Compacted Memory : lots of tiny slivers of wasted memory space between allocated segments
+
+Approaches for free-list memory management:
+-best-fit
+-worst-fit
+-first-fit
+-buddy algorithms
 
 
 
