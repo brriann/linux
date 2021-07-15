@@ -109,12 +109,36 @@ predict future using recent past: multi-level feedback queue
 ### Ch. 8 - Scheduling, Multi-Level Feedback Queue
 ###
 
+goals:
+-optimize turnaround time, without knowing how long jobs will run (SJF/STCF approaches need to know this)
+-minimize response time, Round Robin minimizes response time at the cost of bac turnaround time
 
+maintain several Queues, of different Priority Levels
+
+RULES:
+1. if priority(A) > priority(B), A runs, B doesn't
+2. if priority(A) == priority(B), A & B run in round-robin fashion, using time slice (quantum length) of the given queue
+3. when a job enters the system, it's placed in the highest priority (topmost) queue
+4. once a job uses its time allotment at a given level, (regardless of how many times its given up the CPU), its priority is reduced to a lower queue
+5. after some time period S, all the jobs in the system are moved to the topmost queue
 
 ###
 ### Ch. 9 - Scheduling, Proportional Share
 ###
 
+another approach: instead of optimizing for turnaround time or response time, try to guarantee each job obtains a certain % of CPU time
+
+tickets/ ticket currency/ representation of "your share"
+-randomness
+-ticket transfer, ticket inflation
+
+the Linux CFS (completely fair scheduler)
+
+CFS must looks up next job to run QUICKLY
+- all running processes are stored in a Red-Black Tree
+- non-running processes (eg, waiting for network) are not kept in this Red-Black Tree
+
+I/O, sleeping processes...don't starve other jobs when a process is woken up and "behind" on virtual runtime
 
 
 ###
