@@ -305,3 +305,78 @@ The advantage of the $() substitution method is almost self evident: it is very 
 
 expr command
 man expr
+
+###
+### LAB QUIZ
+###
+
+ls \
+-l
+
+\ tells shell - don't interpret special character after. so ENTER isn't detected, and a special prompt accepts the -l
+
+&& - execute several utilities, ONLY IF PREVIOUS UTILITY SUCCEEDS
+|| - execute several utilities, ONLY IF PREVIOUS UTILITY FAILS
+
+COMMAND SUBSTITUTION
+echo today is `date`  #those are backticks, not single quotes
+echo today is $(date)
+echo there are $(who | wc -l) users_on
+
+REDIRECTION
+>
+plumbing is set up - output is redirected from screen, to a file
+command runs, and output is connected to the file, so results are written there
+
+if output is redirected to a file, behavior depends on noclobber variable
+-off, file is overwritten (if exists)
+-on, shell can't overwrite file
+
+set +o noclobber - turn OFF noclobber
+set -o noclobber - turn ON noclobber
+
+sort someFile > someFile # THIS DOESN"T WORK.
+-redirection is set up first. then, utility is run in a child process
+-part of that redirection work is to empty the output file, to ready it for output from sort utility
+-if output file == input file, sort utility then runs on an empty file!
+
+with no clobber set on, you can still append to files with >>
+
+KEYBOARD = DEFAULT INPUT FOR UTILITIES
+(use utilities without file as input, a secondary prompt appears, and standard in from keyboard runs to the utility until CTRL+D)
+
+SHELL STARTS A CHILD PROCESS FOR EACH UTILITY
+
+PIPE | REDIRECTION = output of one utility becomes input for another
+
+> redirect overwrite
+>> redirect append
+2> redirect errors
+
+utilityCommand > goodOutput 2> errorOutput
+
+/dev/null - write only, can redirect to, "the ether"
+1> /dev/null (only see errors!)
+2> /dev/null (hide errors!)
+
+http://www.watchingthenet.com/ubuntu-tip-how-to-launch-programs-in-the-background-from-a-terminal-window.html
+
+ps -l
+Ctrl + Z - suspend job/process
+
+bash # this command starts a child shell, running in a child process
+
+echo $PATH
+PATH=$PATH:.
+
+PS1='\! |W $ '
+PS1='\h \t \d \W \n \! bash$ '
+
+echo $$ - PID
+echo $PPID
+
+https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+
+~/.bashrc
+~/.profile
+
