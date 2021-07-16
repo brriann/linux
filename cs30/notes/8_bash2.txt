@@ -1,0 +1,157 @@
+
+###
+### Well-Behaved Script article
+###
+
+.sh file ending convention
+
+USERS=`who | wc -l`
+if [ $USERS -eq 0 ] ; then
+    sync
+fi
+
+
+# Structure of a good bash script:
+
+Header
+Global Declarations
+Sanity Checks
+Main Script
+Cleanup
+
+### Header
+
+#!/bin/bash
+-first line, absolute pathname indicating where Bash interpreter resides
+-whereis bash to find
+
+### Global Declarations
+
+declare -rx who="/usr/bin/who"
+
+### Sanity Checks
+
+don't let the script begin its main task unless the computer is in a known/sane state
+
+if test -z "$BASH" ; then
+.... #abort, no bash
+fi
+
+if test ! -x "$who" ; then
+... # abort, no who command available
+fi
+man test
+
+### Main Script
+
+esketit or do the stuff
+
+### Cleanup
+
+-delete temporary files
+-track/return status code from failed command(s)
+
+exit 0 # all is well
+
+exit 1 # error code 1
+exit 3 # error code 3
+
+suspend # wait until notified 
+
+sleep 5 # wait for 5 seconds
+- good for enabling user readability of screen output, maybe
+- NOT good for synchronizing events
+
+
+###
+### the printf statement
+###
+
+ printf "format" "$variable1" "$variable2" "$variablen"  
+
+
+%c Character data
+
+%d Decimal number such as 10,-5  etc
+
+%.nd Decimal number with optional n = number of columns; if n is 0, pad with zeroes
+
+%x Hexadecimal number such as 0xA, 0xffff etc
+
+%s String data such as "vivek", "Good buy"
+
+%ns String data with optional n = number of columns
+
+\n   \t \a Introduce new line (\n) or tab (\t) or bell (\a)
+
+n="10"
+printf "%d" "$n"
+
+-- # used to tell command/program that whatever follows is NOT a command line option (but, an argument maybe?)
+
+
+###
+### Arithmetic with Bash
+###
+
+format: $((EXPRESSION))
+
+SEVEN=$((5+2))
+echo $SEVEN
+
+evaluation is done in fixed-width integers, with no check for overflow
+
+
+http://www.vias.org/linux-knowhow/bbg_sect_03_04_06.html
+
+operators, listed in DECREASING precedence:
+
+Operator	Meaning
+VAR++ and VAR--	variable post-increment and post-decrement
+++VAR and --VAR	variable pre-increment and pre-decrement
+- and +	unary minus and plus
+! and ~	logical and bitwise negation
+**	exponentiation
+*, / and %	multiplication, division, remainder
++ and -	addition, subtraction
+<< and >>	left and right bitwise shifts
+<=, >=, < and >	comparison operators
+== and !==	equality and inequality
+&	bitwise AND
+^	bitwise exclusive OR
+|	bitwise OR
+&&	logical AND
+||	logical OR
+expr ? expr : expr	conditional evaluation
+=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^= and |=	assignments
+,	separator between expressions
+
+leading 0 - interpreted as octal
+leading 0x - interpreted as hex
+
+"[BASE'#']N" 
+
+$[ EXPRESSION ] - this syntax calculates expression result, but does no tests
+
+
+###
+### Selection Structures
+###
+
+
+
+###
+### the read command
+###
+
+
+
+###
+### bash scripting challenge
+###
+
+
+
+###
+### positional parameters
+###
