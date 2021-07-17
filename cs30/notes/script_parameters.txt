@@ -1,0 +1,129 @@
+http://linux-training.be/files/books/LinuxFun.pdf
+
+Linux Fundamentals book
+
+Ch 25 Scripting Parameters
+
+#!/bin/bash
+echo The first argument is $1
+echo The second argument is $2
+echo The third argument is $3
+echo \$ $$ PID of the script
+echo \# $# count arguments
+echo \? $? last return code
+echo \* $* all the argument
+
+$0 = name of the script
+
+### shift - SHIFT THROUGH PARAMETERS 1 by 1
+
+if [ "$#" == "0" ] 
+ then
+ echo You have to give at least one parameter.
+ exit 1
+fi
+while (( $# ))
+ do
+ echo You gave me $1
+ shift
+
+
+### read - RUNTIME INPUT
+
+#!/bin/bash
+echo -n Enter a number:
+read number
+
+### .conf - CONFIG FILE
+
+
+[paul@RHEL4a scripts]$ cat myApp.conf 
+# The config file of myApp
+# Enter the path here
+myAppPath=/var/myApp
+# Enter the number of quines here
+quines=5
+
+[paul@RHEL4a scripts]$ cat myApp.bash 
+#!/bin/bash
+#
+# Welcome to the myApp application
+# 
+. ./myApp.conf
+echo There are $quines quines
+
+[paul@RHEL4a scripts]$ ./myApp.bash 
+There are 5 quines
+[paul@RHEL4a scripts]$
+
+### getopts - GET OPTIONS, also case demo
+
+kahlan@solexp11$ cat options.ksh 
+#!/bin/ksh
+while getopts ":afz" option;
+do
+ case $option in
+ a)
+ echo received -a
+ ;;
+ f)
+ echo received -f
+ ;;
+ z)
+ echo received -z
+ ;;
+ *)
+ echo "invalid option -$OPTARG" 
+ ;;
+ esac
+done
+
+kahlan@solexp11$ ./options.ksh 
+kahlan@solexp11$ ./options.ksh -af
+received -a
+received -f
+kahlan@solexp11$ ./options.ksh -zfg
+received -z
+received -f
+invalid option -g
+kahlan@solexp11$ ./options.ksh -a -b -z
+received -a
+invalid option -b
+received -z
+
+### options that require arguments
+
+kahlan@solexp11$ cat argoptions.ksh 
+#!/bin/ksh
+while getopts ":af:z" option;
+do
+ case $option in
+ a)
+ echo received -a
+ ;;
+ f)
+ echo received -f with $OPTARG
+ ;;
+ z)
+ echo received -z
+ ;;
+ :)
+ echo "option -$OPTARG needs an argument"
+ ;;
+ *)
+ echo "invalid option -$OPTARG" 
+ ;;
+ esac
+done
+
+kahlan@solexp11$ ./argoptions.ksh -a -f hello -z
+received -a
+received -f with hello
+received -z
+kahlan@solexp11$ ./argoptions.ksh -zaf 42 
+received -z
+received -a
+received -f with 42
+kahlan@solexp11$ ./argoptions.ksh -zf 
+received -z
+option -f needs an argument
