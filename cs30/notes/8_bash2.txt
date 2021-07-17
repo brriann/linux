@@ -384,3 +384,54 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
+
+###
+### LAB QUIZ 8
+###
+
+when a script is run by ./scriptName
+- current shell starts a child shell, that reads the script file and runs listed commands
+- execute permission (+x) is needed on the script file
+- execute permission = can/can't start a child shell to run the script file
+- read permission (+r) is also needed on the script file
+- read permission = child shell can read the file to execute it
+
+
+chmod a=rwx permtest
+chmod a=r permtest
+chmod ug=rw,o=r permtest
+chmod u-x,o+r permtest
+chmod u=rwx,go= permtest
+
+MORE SPECIFIC PERMISSIONS TAKE PRECEDENCE OVER LESS SPEFICIC
+
+user > group > other
+
+777, 755, etc = UGO :
+
+0	Grants no permissions (removes all)
+1	Grants execute permission only
+2	Grants write permission only
+3	Grants write and execute permission (2 + 1)
+4	Grants read permission only
+5	Grands read and execute permission (4 + 1)
+6	Grants read and write permission (4 + 2)
+7	Grants read and write and execute permissions (4 + 2 + 1)
+
+Whether a user can remove a file is determined by whether the person has write permission to the file.  
+rm makes an exception if the person is the owner of the file to save a step. (bc, owner could give themselves permissions)
+
+kill -2 PID # same as CTRL-C
+kill -3 PID # same as CTRL-\
+
+### FIND UTILITY
+
+find /tmp -user $USER -print
+find ~ -name practice -print
+
+Use -exec to get the find command to execute another utility once it finds what you are looking for. 
+
+find /tmp -user $USER -exec head -2 {} \; -print
+
+find /tmp -user $USER -exec ls -lFi {} \; -print 2> /dev/null
+
