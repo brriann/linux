@@ -1,0 +1,46 @@
+grep 'Brian Foster' .addr_book
+
+
+
+###
+### script command - log output, stopping/starting for interactives eg vi
+###
+
+script -a logoutput
+# do stuff on terminal
+
+exit
+# do stuff in vi
+
+script -a logoutput
+# do stuff on terminal
+
+exit
+# back in vi
+# ...etc
+
+script -a = APPEND MODE
+
+
+mkdir bin
+touch bin/lookup
+chmod 755 bin/lookup
+
+
+### SCRIPT
+
+#!/bin/bash
+
+# validate number of parameters if not 1/2 (scriptname parameter), display usage message
+
+# define searchterm = parameter 1
+
+# display "Searching for $searchterm"
+
+# grep $searchterm .addr_book
+
+# display "All Address Book Entries"
+
+# output sorted .addr_book content
+sort -k2 .addr_book (-k2 sorts on last name - 2nd column by whitespace)
+
