@@ -138,20 +138,249 @@ $[ EXPRESSION ] - this syntax calculates expression result, but does no tests
 ### Selection Structures
 ###
 
+#! - shebang, prefix specifying which shell the script was written for
+-if not exists, script executed under current shell
+
+#!/bin/bash
+#! = this is a shell script, and next several bytes, up to a newline character, make up the name of the binary that the OS should run, feeding it the script
+
+Top Down line-by-line execution, left to right.
+
+CONDITIONAL PROCESSING
+
+test command, or [] - evaluate conditional expressions
+
+test expression (integers only. decimal values truncated)
+[ expression ]
+
+- wildcards in string comparison should ONLY be used in a case statement. test command will force shell to interpret wildcards as a filename search.
 
 
+### Numeric Comparisons
+
+int1 -eq int2
+Returns True if int1 is equal to int2.
+
+int1 -ge int2
+Returns True if int1 is greater than or equal to int2.
+
+int1 -gt int2
+Returns True if int1 is greater than int2.
+
+int1 -le int2
+Returns True if int1 is less than or equal to int2
+
+int1 -lt int2
+Returns True if int1 is less than int2
+
+int1 –ne int2
+Returns True if int1 is not equal to int2
+
+
+### String Comparisons
+
+str1 = str2
+Returns True if str1 is identical to str2.
+
+str1 != str2
+Returns True if str1 is not identical to str2.
+
+Str
+Returns True if str is not null.
+
+-n str
+Returns True if the length of str is greater than zero.
+
+-z str
+Returns True if the length of str is equal to zero. (zero is different than null)
+
+### File Comparisons
+
+-d filename
+Returns True if file, filename is a directory.
+
+-f filename
+Returns True if file, filename is an ordinary file.
+
+-r filename
+Returns True if file, filename can be read by the process.
+
+-s filename
+Returns True if file, filename has a nonzero length.
+
+-w filename
+Returns True if file, filename can be written by the process.
+
+-x filename
+Returns True if file, filename is executabl
+
+
+### Expression Comparisons
+
+!expression
+Returns true if expression is not true
+
+expr1 -a expr2
+Returns True if expr1 and expr2 are true. ( && , and )
+
+expr1 -o expr2
+Returns True if expr1 or expr2 is true. ( ||, or )
+
+
+### If statements
+
+IF ------
+
+if test expression
+then
+    action
+fi
+
+if [ expression ]
+then
+    action
+fi
+
+IF ELSE ------
+
+if [ condition ]
+then
+    action1
+else
+    action2
+fi
+
+IF ELSE IF ------
+
+if [ condition1 ]
+then
+    action1
+elif [ condition2 ]
+then
+    action2
+fi
+
+IF ELSE IF ELSE ------
+
+if [ condition1 ]
+then
+    action1
+elif [ condition2 ]
+then
+    action2
+else
+    action3
+fi
+
+
+### LOGICAL OPERATORS
+
+&& and
+|| or
+
+if [ $number -gt 10] || [ $number -lt -10 ] # out of range!
+if [ $number -gt -10] && [ $number -lt 10 ] # in range
+
+
+
+### 
 ###
 ### the read command
 ###
 
+make scripts interactive
+-take input from keyboard and assign it to variable
 
+#!/bin/bash
+echo -n "Enter some text > " # -n option of echo keeps cursor on same line
+read text
+echo "You entered: $text"
+
+(alternatively, not setting read input to a variable, and using environment variable $REPLY)
+
+#!/bin/bash
+echo -n "Enter some text > " # -n option of echo keeps cursor on same line
+read
+echo "You entered: $REPLY"
+
+READ OPTIONS
+
+read -t 5 # set timer for 5 seconds
+
+echo -n "Hurry up and type something! > "
+if read -t 3 response; then
+    echo "Great, you made it in time!"
+else
+    echo "Sorry, you are too slow!"
+fi
+
+read -s # hide what user is typing, good for password
 
 ###
 ### bash scripting challenge
 ###
 
+FUNCTIONS:
 
+some_func()
+{
+
+}
+
+$(some_func)
 
 ###
 ### positional parameters
 ###
+
+>$ some_program word1 word2 word3
+
+$0 = "some_program"
+$1 = "word1"
+$2 = "word2"
+$3 = "word3"
+
+TWO WAYS TO DETECT COMMAND LINE ARGUMENTS::
+
+#!/bin/bash
+
+if [ "$1" != "" ]; then
+    echo "Positional parameter 1 contains something"
+else
+    echo "Positional parameter 1 is empty"
+fi
+
+#!/bin/bash
+
+if [ $# -gt 0 ]; then
+    echo "Your command line contains $# arguments"
+else
+    echo "Your command line contains no arguments"
+fi
+
+setting an empty variable:
+someEmptyVar=
+
+
+PROCESS COMMAND LINE ARGUMENTS BY USING SHIFT:
+(shift makes $3 to $2, $2 to $1, etc)
+
+
+interactive=
+filename=~/sysinfo_page.html
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -f | --file )           shift
+                                filename="$1"
+                                ;;
+        -i | --interactive )    interactive=1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
