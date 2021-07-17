@@ -7,11 +7,11 @@
 Program Code
 -------------------------------------------
 Heap (dynamically-allocated, user-managed memory)
- |
-\ / HEAP GROWS DOWN
+||
+\/ HEAP GROWS DOWN
 -------------------------------------------
-/ \ STACK GROWS UP
- |
+/\ STACK GROWS UP
+||
 Stack (track location in function call chain, allocate local variables, pass parameters and return values to/from routines)
 -------------------------------------------
 
@@ -137,29 +137,183 @@ Approaches for free-list memory management:
 
 
 ###
-### Ch. 
+### Ch. 17 - Free Space Management
+###
+
+Compaction, External Fragmentation, problem of variable-sized requests
+
+Mechanisms:
+Splitting: dividing free chunks of memory to satisfy a small request
+Coalescing: merging neighboring chunks of free memory
+
+Free List - maintaining a list of free units of memory, EMBEDDED in the memory itself
+- using a HEADER block to identify size of a given block, as well as a linked list type of pointer/ memory address to "next free unit in list"
+
+Growing The Heap of an address space: allocators start with a small heap, and make calls to "sbrk" type of system calls, adding free memory to address space of requesting process
+
+STRATEGIES FOR MANAGING FREE SPACE
+
+Best Fit: find memory chunks in Free List that are bigger than requested size. Choose the smallest of these.
+- generally leaves SMALL chunks on the Free List
+
+Worst Fit: find the LARGEST chunk and return the requested amount, keep remaining split of chunk on the Free List
+- generally leaves BIG chunks on the Free List
+- performs bad? leads to fragmentation
+
+First Fit: find first block in Free List that satisfies request
+- BENEFIT: don't have to traverse the entire Free List
+- OPTIMIZE: by keeping the Free List ordered by address of free space "Address-based ordering"
+
+Next Fit: keep pointer to Free List location where allocator was looking last
+- spread searches for free space throughout the list more uniformly
+
+Segregated Lists: maintain several Free Lists, of popular request size chunks of free memory
+- forward other requests to a general memory allocator
+-Slab Allocator: when kernel boots up, object caches are allocated for kernal objects likely to be frequently requested (locks, filesystem inodes, etc)
+- when a given cache is low on space, SLABS of memory from a general allocator are requested
+
+Buddy Allocation: view free memory as a big space of size 2^N
+- to fill a request, recursively divide free space by 2 until a block size accomodates request
+- vulnerable to internal fragmentation (can only give out power-of-2 size blocks)
+- BENEFIT: when memory is freed. check for "buddy" of same size, and join them back together as possible
+- 8kb free, buddy is 8kb, join to 16kb...check 16kb buddy, join if possible, etc
+
+glibc allocator
+https://www.gnu.org/software/libc/manual/html_node/The-GNU-Allocator.html
+
+
+###
+### Ch. 18 - Paging Introduction
+###
+
+As opposed to Segmentation,
+PAGING - splits a process's address space into FIXED-SIZED UNITS called Pages
+physical memory viewed as an array of fixed-size slots calle Page Frames
+
+Page Table: a per-process data structure
+- Address Translations (virtual to physical) for each virtual page of the address space are stored here
+
+Virtual Address = VPN (Virtual Page Number) + Offset (within Page)
+-now it can be translated
+
+Which physical frame does a given Virtual Page fit into?
+-Physical Frame Number PFN, or Physical Page Number PPN
+
+Where are Page Tables stored?
+- no hardware in the on-chip MMU to store page table of the currently running process
+- page tables can become BIG
+PTE = Page Table Entry
+- page tables can be stored in virtualized OS memory, physical memory, or even swapped to disk
+
+What's in the Page Table?
+-Linear Page Table -array, indexed by VPN (Virtual Page Number)
+-Bits to define characteristics of a Page:
+-- Valid bit
+-- Protection bit
+-- Present bit
+-- Dirty bit
+-- Reference bit
+
+Page Tables in memory can be too big, and too slow
+- address translations must happen before Page Table is referenced?
+- "Page-Table Base Register" can store physical address of starting location of Page Table
+
+
+###
+### Ch. 19 - Paging, Faster Translations (TLBs)
+###
+
+How can we speed up address translations?
+
+TLB = translation-lookaside buffer
+-aka, an address-translation cache
+
+a TLB is part of the chip's MMU (memory management unit), and is a hardware cache of popular virtual-to-physical address translations
+
+general algorithm:
+1. extract the VPN (virtual page number) from a virtual address
+2. check if TLB holds the translation for this VPN
+3. if yes, TLB HIT, cache holds the translation
+4. else, TLB MISS, hardware accesses Page Table to find the translation, and stores it in TLB
+
+Arrays are stored contiguously in memory.
+- if iterating over an array, TLB caching will benefit subsequent accesses. find a[0], then address for a[1]....etc are cached in TLB. LESS ADDRESS TRANSLATION
+
+Spatial Locality: elements are stored closely together in physical memory
+Temporal Locality: elements are quickly re-referenced in time
+
+CISC : Complex Instruction Set Computers
+RISC : Reduced Instruction Set Computers
+
+software or hardware managed TLB? who handles the TLB miss?
+
+Handling a CPU Context Switch with the TLB cache
+-DON'T want to just erase the TLB each context switch. 
+- add Address Space ID ASID to the TLB - which Process or PID does the cache entry belong to?
+- Processes will also share memory, eg code
+
+Cache Replacement Policy
+- when adding new entries, which older entries are removed?
+- LRU: Least-Recently Used
+- Random
+
+"RAM isn't always RAM"
+- TLB can be the source of performance problems
+- what if number of pages in address space exceeds TLB coverage?
+
+###
+### Ch. 20 - Paging, Smaller Tables
+###
+
+Linear Page Tables, or array-based, are simply too big, and consume too much memory
+
+Big Pages lead to Internal Fragmentation (wasted space INSIDE a unit)
+
+Hybrid Approach: Paging and Segments
+
+Multi-Level Page Tables:
+-turn the linear page table into a tree-like structure
+- new structure: Page Directory
+-- where is a Page of the Page Table stored?
+
+Page Directory: a 2-level table
+- one entry per page of the Page Table
+- PDE: Page Directory Entry
+
+TIME-SPACE TRADE OFFS
+- also, COMPLEXITY
+
+More than 2-level deep Page Directory
+
+REMEMBER THE TLB CACHE!
+- only on a TLB MISS does the Multi-Level Page Table need to be traversed/consulted
+
+Inverted Page Tables
+-single page table, eich an entry for each physical page of the system
+- entry tells us which process is using this page
+-- and, which virtual page of that process maps to this physical page
+
+Swapping Page Tables to Disk
+- page tables don't necessarily reside in kernel-owned physical memory.
+-can be stored in Kernal Virtual Memory,
+-- thus, able to be swapped to disk as needed, per "memory pressure"
+
+
+###
+### Ch. 21 - Beyond Physical Memory: Mechanisms
 ###
 
 
 
 ###
-### Ch. 
+### Ch. 22 - Beyond Physical Memory: Policies
 ###
 
 
 
 ###
-### Ch. 
+### Ch. 23 - Complete Virtual Memory Systems
 ###
 
 
 
-###
-### Ch. 
-###
-
-
-
-###
-### Ch. 
-###
