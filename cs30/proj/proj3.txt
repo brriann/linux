@@ -1,5 +1,66 @@
-grep 'Brian Foster' .addr_book
 
+###
+### SCRIPT
+###
+
+# 1.
+cd
+pwd 
+ls -a | grep .addr_book
+
+# 2.
+cat .addr_book
+
+# 3.
+script -a proj3.txt
+
+# 4. 
+grep 'Brian Foster' .addr_book
+grep 'Mike Murphy' .addr_book
+awk '/health/' .addr_book
+awk '/mil/' .addr_book
+awk '/mil/ {print $1 " " $2}' .addr_book
+awk '/memes/' .addr_book
+awk '/memes/ {print $1 " " $2}' .addr_book
+grep 'slb' .addr_book
+awk '/edu/' .addr_book
+
+# 5. 
+mkdir bin
+touch bin/lookup
+ls -l bin/lookup
+chmod 755 bin/lookup
+ls -l bin/lookup
+echo $PATH
+PATH=$PATH:/home/pi/bin
+echo $PATH
+
+# 6.
+echo "exiting script logging for interactive vi"
+exit
+
+# 7.
+vi lookup
+enter the script contents
+
+#8
+script -a proj3.txt
+echo "restarting script logging after returning from vi"
+
+#9
+lookup
+lookup --help
+lookup Murphy
+lookup Brian
+lookup memes
+lookup .mil
+lookup .edu
+lookup Geddy Lee
+...etc
+
+#10
+exit
+save script and QA
 
 
 ###
