@@ -303,17 +303,147 @@ Swapping Page Tables to Disk
 ### Ch. 21 - Beyond Physical Memory: Mechanisms
 ###
 
+How can the OS make use of hard disk drive (SLOWER, larger) to provide the illusion of a larger address space?
+
+MEMORY HIERARCHY
+
+Swap Space - disk space reserved for moving pages of memory back and forth
+-Disk Address of a given page must be tracked by OS
+
+Present Bit - tracked in Page Table, is this Page present in physical memory, or on disk?
+
+TLB hit/miss
+
+Page Fault - page not in Page Table
+Page Fault Handler - OS swaps page from disk into memory
+- this is an IO operation - Process needing Page of memory will be BLOCKED until finished
+
+If Memory is Full-
+before a "Page In" from disk, OS might need to "Page Out" a page from memory to disk
+
+Page Replacement Policy - defines how to Page Out, and which Page(s) to boot
+
+High Watermark and Low Watermark
+-OS tracks when fewer than LW pages are available in memory
+-swap daemon or page daemon, a background thread, evicts pages until there are HW pages available
+
+Cluster/Group pages when writing out to swap partition on disk - increases efficiency of disk
 
 
 ###
 ### Ch. 22 - Beyond Physical Memory: Policies
 ###
 
+Memory Pressure - lack of free memory
+- forces OS to start Paging Out pages to disk, making room for actively-used pages of memory
+
+Replacement Policy - which memory Pages to Evict?
+
+Main Memory can be viewed as a CACHE for virtual memory pages in the system
+-goal of Replacement Policy is to minimize cache misses
+
+AMAT - Average Memory Access Time 
+
+AMAT = Tm + ( Pmiss * Td)
+Tm - cost of accessing memory
+Pmiss - probability of cache miss (not finding data in cache aka memory)
+Td - cost of accessing disk
+
+Optimal Replacement Policy - replaces the page that will be accessed FURTHEST IN THE FUTURE
+-this requires future knowledge
+
+Cache starts in empty state - Cold-Start Miss or Compulsory Miss
+
+FIFO: Simple Policy
+- pages placed in Queue, when a replacement occures, the "First-In" page is replaced
+
+Random: Simple Policy
+- randomly boot pages for a replacement
+
+Simple Policies may kick out an important page, one that was about to be used again
+
+Frequency, Recency - two key properties to identify important Pages
+
+Principle of Locality - a heuristic, programs tend to access certain code/data sequences frequently (eg, loops, arrays)
+
+LFU - Least Frequently Used
+LRU - Least Recently Used
+
+(MFU, MRU, "Most") - ignore, instead of embracing, locality that most programs exhibit. Boo!
+
+WORKLOAD TYPES
+- No-Locality workload, totally random access
+- 80-20 Workload, 80% of accesses are made to 20% of memory Pages
+- Looping Workload, something like 10k accesses to 50 unique pages
+
+Approximating LRU - "clock algorithm" 
+- cycle through Pages, flipping a "recently accessed" bit, until either an empty is encoutered for swap, or all are "recents", and flipped back to 0
+
+Dirty Pages - track with Dirty Bit
+-have been modified. an eviction is expensive, since changes must be persisted
+
+What should OS do when memory is oversubcribed?
+- Thrashing happens - constant paging
+-admission control (throttle active processes)
+-out-of-memory killer (kill a memory-intensive process)
 
 
 ###
 ### Ch. 23 - Complete Virtual Memory Systems
 ###
 
+VAX/VMS
+-Memory Management Hardware
+-Page 0 is nullptr, "Invalid Bit" - this is how nullptr is supported in C/C++
+-Page Replacement
+-- segmented FIFO, per process, second-chance lists
 
+Linux
+-kernel logical addresses, vs kernel virtual addresses
+-- kernel logical addresses support easy translation, and contiguous memory for IO / DMA (direct memory access)
+-- kernal virtual addresses usually not contiguous
+
+Page Table Structure - 64 bit, 48 bits used
+
+Large Page Support
+-lots of small Pages clutter up Page Table
+-instead of just 4-KB pages, 2-MB and even 1-GB pages are supported for memory intensive processes
+- "Huge Pages" suffer from internal fragmentation - wasted space inside the page
+
+Page Cache - 
+- memory mapped files
+- file data / device metadata
+- heap/stack pages comprising each process - ANONYMOUS MEMORY (no named file underneath, rather, just swap space)
+
+Linux 2Q Page Replacement Policy
+- similar to LRU, but with 2 lists, Inactive List and Active List
+- Pages promoted to Active List when re-referenced
+
+Security, Buffer Overflow Protection
+- don't let arbitrary data be injected into kernel address space!
+- this can result in privilege escalation (user code gaining kernel access rights)
+
+return-to-libc attack
+
+Defense: ASLR, Address Space Layout Randomization
+- obscure the locations of code / heap / stack within virtual address spaces
+- this can be observed by re-running code and seeing pointer locations, they should change (eg, a stack int variable)
+
+KASLR - Kernel Address Space Layout Randomization
+
+PROBLEMS FOR KERNEL:
+
+Meltdown, Spectre
+
+Speculative Execution (predictive optimization behavior of CPU) can leave traces in things like processsor caches, branch predictors, etc
+- this type of state can leave parts of the memory vulnerable
+
+Kernel Page-Table Isolation
+
+*******
+vmstat utility - reports information about processes, memory, paging, block IO, traps, and cpu activity.
+*******
+
+https://www.redhat.com/sysadmin/linux-commands-vmstat
+https://linux.die.net/man/8/vmstat
 
