@@ -2,23 +2,214 @@
 ### Permissions
 ###
 
+READ r - view file content, view directory content
+WRITE w - modify file content, create/delete directory contents
+EXECUTE x - run the file if executable and has read perm, move into directory, also see long listing of directory contents with read perm
 
+ls -l shows permission flags
+
+u user (owner)
+g group 
+o other
+
+rwx ugo = rwxr-xr-x format (g and o cannot write in this example)
+
+- file
+d directory
+l link
+
+ls -l output:
+perms,  # links, owner, owner's group, size in bytes, datetime last modified, file/dir name
+drwxr-xr-x  2 pi   pi    4096 Jul 11 10:36 Archives
+
+chmod - change permissions
+- only owner or superuser can change perms for a file/dir
+- character and number format
+
+chmod[ugo][+-=][rwx] "chmod who what where"
+
+chmod u+x file
+chmod o=r dir
+chmod ug+w pattern*
+
+rwx = 3-bit number, 101, 110, 001, 4-2-1 place in binary
+
+775 - ugo, u=7 g=7 o=5
+640 - ugo, u=6, g=4, o=0
+
+7 = rwx
+5 = r-x
+4 = r--
+1 = --x
+
+... etc
+
+chmod -R 777 someDir # recursive
+
+Permissions allow actions on files and directories, but the same permissions act somewhat differently for files than for directories. Let's first look at permissions as they pertain to files:
+Read: permits access the contents of a file
+Write: permits adding to the content of a file
+Read and Execute: permits running a script or other executable file
+
+So what about those permissions when applied to directories?
+Read: read directory contents (ls)
+Write and execute: change name of a listed file, remove a file or add a new file
+Execute: make the directory your current directory (cd) or get to a file or subdirectory in that directory
+
+a directory is a file that contains a list of pointers to the contents of the directory
+
+Some things to remember about permissions on directories:
+
+You need to have at least read permission to view the contents of a directory using ls without the -l option.
+You require both the read and the execute permission to change into a directory or do a long listing of the directory (ls -l).
+In order to create a subdirectory within a directory, you also need the write permission.
+
+Default Permissions:
+- creator of file is owner, and creator's group is "group"
+
+new files: default 666 rw-rw-rw-
+new dirs: default 777 rwxrwxrwx 
+
+umask - change default perms
+
+umask 022 - masks 2 bit - the w. group and others cannot write.
+
+umask affects newly created files until system restart
+
+Changing Ownership
+
+chown
+
+chown username filename -- changes user but not the group
+chown username.groupname filename -- changes owner and group
+chown username.filename -- changes owner and group. Group will be changed to specified user's login group
+chown .groupname filename -- changes the group but not the owner. This is the same as using the chgrp command.
+
+
+it doesn't directly matter which groups a user belongs to. The kernel doesn't have a notion of users belonging to groups. 
+What the kernel maintains is, for every process, a user ID (the effective UID (Links to an external site.)) and a list of group IDs
+(the effective GID and the supplementary GIDs). 
+The groups are determined at login time, by the login process — it's the login process that reads the group database (e.g. /etc/group). 
+User and group IDs are inherited by child processes¹.
+
+When a process tries to open a file, with traditional Unix permissions:
+
+If the file's owning user is the process's effective UID, then the user permission bits are used.
+Otherwise, if the file's owning group is the process's effective GID or one of the process's supplementary group ID, then the group permission bits are used.
+Otherwise, the other permission bits are used.
+Only one set of rwx bits are ever used. User takes precedence over group which takes precedence over other.
 
 ###
 ### User Processes
 ###
 
+Jobs Table - unique to a specific shell
+- entries for a single user
 
+Process Table - system wide
+- entries for all users of system
+
+PID - Process ID
+
+ps command
+
+The ps Fields
+
+PRI: Process scheduling priority. Lower priority has a higher number.
+NI: Process Nice value. Processes using less CPU time have a higher number.
+SIZE: Virtual image size.
+RSS: Physical memory in KB.
+WCHAN: Kernel function in which process resides.
+STAT: Status. Values include R (Running), T (Stopped), D (asleep and uninterruptable), S (asleep), Z (zombie), W (no resident pages), N (positive nice value)
+TT: The tty associated with the process.
+PAGEIN: The number of major page faults.
+TRS: Resident text size.
+SWAP: Number of KB of swap used.
+SHARE: Amount of shared memory.
+
+ps
+ps --help
+ps -a
+ps -au
+ps -aux
+ps -auxw
+
+Child Process - spawned by another (Parent) Process
+
+(Jobs Table only displays original Process) - Process Table show original Process and all subsequent descendent Processes
+
+# this is a decent long-running set of Processes...
+ls -lR 2> err| grep date >file1 &
+ps
+
+# another one
+sleep 50 &
+
+KILL A PROCESS BY PID
+
+kill -9 <PID>
+
+-9 SIGNAL - one of many different Signals/Interrupts, -9 is immediate + unconditional termination
 
 ###
 ### Locating, Printing, and Archiving User Files
 ###
 
+find command
 
+find locations actions (-print default action)
 
-###
-###
-###
+-name 
+-type
+-user
+-group
 
+find -atime 2, -atime +2, -atime -4, -atime+5-atime-10
+-atime (accessed)
+-mtime (modified)
 
+find location criterira -exec command {} \;
+
+-exec vs -ok (ok is interactive, prompts for y/n)
+
+locate command
+slocate - build database which locate command uses
+
+Print Files
+
+lp command
+lpr command
+
+lpd daemon - runs in background, handles print jobs
+
+$PRINTER env var, vs -P option
+
+pr command
+
+CUPS - Common Unix Printing System
+https://ubuntu.com/server/docs/service-cups
+
+Piping |
+Redirection < in > out
+
+ARCHIVE FILES
+
+tar command
+Tape Archive
+
+tar -cf destination source
+
+-c : create
+-f : use following name
+-r : append to / update an existing tar file
+-v : verbose, tar command outputs files/dirs it's operating on 
+
+CREATE A TAR FILE
+tar -cvf dest source
+
+EXTRACT A TAR FILE
+tar -xvf source dest
+
+LIST CONTENTS OF A TAR FILE
+tar -tvf source
 
