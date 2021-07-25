@@ -1,35 +1,154 @@
 ###
-### Ch. 
+### Ch. 26 - Concurrency: An Introduction
+###
+
+Multi-threaded programs have more than 1 point of execution
+
+Threads are similar to Processes, but they share the same Address Space
+
+Threads running on a single CPU similar Context Switch, but Address Space stays the same
+
+Similar to PCB Process Control Block,
+a Processes needs TCBs Thread Control Blocks to save the state of its threads
+
+Stack-allocated variables are Thread-Local
+-To share data between Threads, the HEAP must be used
+
+Why Use Threads?
+- Parallelism - multiple processors can each perform a unit of work
+- Avoid I/O blocking - while one thread is blocked for I/O, CPU can switch to another thread and continue work
+
+OBJDUMP - Linux disassembler
+
+Shared Data can lead to a Race Condition
+Critical Section - part of code containing shared data
+Mutual Exclusion - protection against race conditions
+
+ATOMICITY - strive for atomic, "all or nothing" transactions. This allows multi-threaded code to access Critical Sections, and be OK
+
+SYNCHRONIZATION PRIMITIVES - hardware instructions that, in tandem with OS, work to support Concurrency
+
+Definitions:
+Critical Section - piece of code accessing a shared resource
+Race Condition (data race) - arises if multiple threads enter a critical section at roughly the same time
+- many threads attempt to update the shared data structure, leading to unexpected outcomes
+Indeterminate - program containing <=1 race conditions. Outcome is not deterministic
+Mutual Exclusion - primitives used by threads to prevent multiples concurrent entries into a critical section
+
+
+###
+### Ch. 27 - Interlude: Thread API
+###
+
+POXIS pthread library
+
+https://www.cs.cmu.edu/afs/cs/academic/class/15492-f07/www/pthreads.html
+
+pthread_t - POSIX Thread type
+
+pthread_create - Thread creation
+
+pthread_join - Thread completion
+
+pthread_mutex_t - POSIX Lock type
+
+pthread_mutex_lock - lock a Lock
+
+pthread_mutex_unlock - unlock a Lock
+
+PTHREAD_MUTEX_INITIALIZER
+
+pthread_cond_wait - Condition Variable wait
+
+pthread_cond_signal - Condition Variable signal
+
+gcc -pthread (include for Compile)
+
+
+
+###
+### Ch. 28 - Locks
+###
+
+Annotate source code - place Locks around critical sections, so only 1 thread at a time, can access the critical section
+
+Coarse-Grained vs Fine-Grained Locking approach
+- how much code is contained in a single lock?
+
+Evaluating Locks
+- mutual exclusion - the basic task
+- fairness
+- performance
+
+Spin/Wait - wasting CPU cycles, waiting on a Lock to be unlocked
+
+Spin Lock - requires a Preemptive Scheduler to work on a single CPU
+
+Test-And-Set : atomic hardware primitive
+
+Compare-And-Swap: hardware primitive
+
+Load-Linked & Store-Conditional: hardware primitives
+
+Fetch-And-Add: hardware primitive
+
+How to avoid Spinning?
+- Thread can yield
+- Queues/sleeping
+- wakeup/waiting race
+
+Linux-based Futex locks
+
+
+
+###
+### Ch. 29 - Lock-based Concurrent Data Structures
+###
+
+How to make various data structures Thread-Safe?
+- Add LOCKS!
+
+Counter
+-for multi-CPU, Approximation
+-local counts
+-global count
+-local counts added to global count when at a certain threshold
+(numLocal * threshold) = error possible
+
+Linked List
+-Locks in insert() and lookup()
+-Hand-over-Hand locks; instead of a single Lock for the entire Linked List, Lock per Node
+
+Queue
+- dummy node added, to seperate head (dequeue) and tail (enqueue) operations
+- Locks in enqueue() and dequeue()
+
+Hash Table
+- array of Thread-Safe Linked Lists
+- performance scales much better than a single Linked List due to Hash Bucket division of labor
+
+
+
+###
+### Ch. 30 - Condition Variables
 ###
 
 
 
 ###
-### Ch. 
+### Ch. 31 - Semaphores
 ###
 
 
 
 ###
-### Ch. 
+### Ch. 32 - Common Concurrency Problems
 ###
 
 
 
 ###
-### Ch. 
-###
-
-
-
-###
-### Ch. 
-###
-
-
-
-###
-### Ch. 
+### Ch. 33 - Event-based Concurrency
 ###
 
 
