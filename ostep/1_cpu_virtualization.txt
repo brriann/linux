@@ -145,4 +145,41 @@ I/O, sleeping processes...don't starve other jobs when a process is woken up and
 ### Ch. 10 - Multiprocessor Scheduling (Advanced)
 ###
 
-TODO - circle back to this after concurrency section
+Single CPU with Cache
+vs
+Multi CPU with Caches, sharing Memory
+
+Caches based on locality
+-temporal (x used, may be used again soon)
+-spatial (x used, x+1 may be used)
+
+Cache Coherence - if a value is updated, and stored in a given CPU Cache (to be sent to Memory)
+- other CPU Caches must be aware of this change
+- BUS SNOOPING
+- Invalidate, or Update, the other CPU Cache values
+
+Cache Affinity - since a Progam's state will make it into the CPU Cache for the CPU on which it is run
+- try and restore a Program (Process/Thread) back to that same CPU
+- otherwise, benefits of CPU Caching won't be realized
+
+Single-Queue Scheduling
+- SQMS - Single Queue Multiprocessor Scheduling
+- lacks scalability - relies on locking
+- may lack Cache Affinity, without an Affinity Mechanism - Jobs shuffled around CPUs
+
+Multi-Queue Scheduling
+- MQMS - Multi Queue Multiprocessor Scheduling
+- Round Robin per CPU?
+- more scalable
+- PROBLEM: Load Imbalance
+- Migration of Jobs between CPUs
+
+Work Stealing: idle CPUs will snoop on / steal from busy CPUs
+
+O(1) Scheduler
+- priority based, similar to MLFQ
+CFS - Completely Fair Scheduler
+- proportional share, similar to Stride scheduling
+BFS - Brain Fuck Scheduler
+- single-queue approach, based on EEVDF (Earliest Eligible Virtual Deadline First)
+

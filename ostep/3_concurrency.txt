@@ -199,11 +199,77 @@ Sleeping Barber Problem
 ### Ch. 32 - Common Concurrency Problems
 ###
 
+NON-DEADLOCK
+
+Atomicity-Violation
+- a code region is meant to be atomic, but that's not enforced during execution
+- can fix by simply adding Locks ?
+
+Order-Violation
+- desired order between 2 groups of memory access is flipped / not enforced
+- can fix with Condition Variables ?
+
+DEADLOCK
+
+Deadlock = a CYCLE in a DEPENDENCY GRAPH
+
+4 required conditions:
+- mutual exclusion (threads claim control, aka, grab Lock)
+- hold-and-wait: threads hold resources allocated to them (eg Lock), while waiting for additional resources (eg, another Lock)
+- no preemption: resources (Locks) can't be forcily removed from Threads holding them
+- circular wait: a circular chain of threads exist, such that each thread holds resources (Locks) requested by next thread in chain
+
+Prevent Circular Wait
+-total/partial ordering of Lock acquisition
+
+Prevent Hold-and-wait
+- acquire all locks at once, atomically
+
+Prevent No Preemption
+- TryLock - can result in LIVELOCK
+
+Prevent Mutual Exclusion
+- lock-free/wait-free approaches: lean on powerful Hardware instructions, instead of explicitly locking
+
+Avoid instead of Prevent:
+-via Scheduling
+
+Detect and Recover
+-cycle in dependency graph?
 
 
 ###
 ### Ch. 33 - Event-based Concurrency
 ###
 
+eg, nodeJS
+https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/
 
+Event Loop
 
+-wait for something to occur
+-determine what type of event it is
+- do the small amount of work it requires
+    - this may be IO request issue, scheduling other events, etc
+
+Event Handler - code that processes each event
+
+API:
+select()
+poll()
+
+check if there's incoming IO that needs to be attended to
+read? write? exception?
+
+Synchronous: BLOCKING
+Asynchronous: NON-BLOCKING
+
+Event Based systems CANNOT ALLOW BLOCKING
+- Asynchronous I/O is crucial
+
+Unix signals, signal handlers, interrupts
+
+State Management - program state is no longer stored on Stack of Threads
+- manual stack management needed
+
+Continuation - programming construct, record info to finish processing an event, and look it up when needed (when event happens)
