@@ -128,17 +128,71 @@ Hash Table
 - performance scales much better than a single Linked List due to Hash Bucket division of labor
 
 
-
 ###
 ### Ch. 30 - Condition Variables
 ###
 
+Thread needs to check if a condition is true, before continuing execution
+
+join() - parent thread checking to see if child thread has finished
+
+Condition Variable - explicit queue that threads can put themselves on when some state of execution is not as desired
+- by waiting on the condition
+- another thread can change the execution state, WAKING the other thread(s)
+- this thread SIGNALS on the condition
+
+pthread_cond_t - Condition Variable type
+pthread_cond_wait - wait() for a condition variable state (WAITING on another thread)
+pthread_cond_signal - signal() for a condition variable state (WAKING other threads)
+
+"Hold the Lock while calling Signal or Wait"
+
+PRODUCER/CONSUMER (BOUNDED BUFFER) PROBLEM
+- producer threads generate data items and place them in a buffer
+- consumer threads grab data itesm from the buffer and consume them
+
+Eg: Web server, (multi-threaded) - HTTP requests placed into work queue by producer threads
+- consumer threads take requests out of queue and process them
+
+grep foo file.txt | wc -l
+
+- PIPING produces a bounded buffer / producer-consumer pattern
+
+EMPTY, FILL Condition Variables, While, used to solve Producer/Consumer
+
+Covering Conditions - signal vs broadcast
+- wake up possibly too many threads, to avoid not having any threads woken up
 
 
 ###
 ### Ch. 31 - Semaphores
 ###
 
+Semaphore - single primitive for all things Sychronization
+- can use semaphore as both Locks and Condition Variables
+
+Semaphore = an object with an integer value, that can be manipulated with 2 routines in POSIX:
+- sem.wait()
+- sem.post()
+
+sem.init() - initalize value
+
+Binary Semaphore - LOCK USE
+
+Semaphores for Ordering - CONDITION VARIABLE USE
+
+Producer/Consumer and Semaphores
+
+Reader-Writer Locks
+- multiple concurrent readers is OK
+- a writer and a reader cannot be concurrent
+
+Dining Philosophers
+- break symmetric dependency (1 looks right instead of left)
+
+Cigarette Smoker's Problem
+
+Sleeping Barber Problem
 
 
 ###
