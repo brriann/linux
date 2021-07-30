@@ -1,0 +1,39 @@
+File Servers
+https://adrianmejia.com/how-to-set-up-samba-in-ubuntu-linux-and-access-it-in-mac-os-and-windows/
+https://www.tecmint.com/install-ftp-server-in-ubuntu/
+https://www.emiprotechnologies.com/technical_notes/odoo-technical-notes-59/post/install-and-configure-vsftpd-475
+https://magpi.raspberrypi.org/articles/samba-file-server
+https://pimylifeup.com/raspberry-pi-ftp/
+
+Raspberry Pi
+https://www.reddit.com/r/RASPBERRY_PI_PROJECTS/comments/ae38k3/sql_server_with_web_interface_raspberry_pi/
+https://www.reddit.com/r/RASPBERRY_PI_PROJECTS/comments/ae84fv/is_using_a_raspberry_pi_as_a_web_server_host_a/
+https://www.reddit.com/r/RASPBERRY_PI_PROJECTS/comments/aic05y/raspberry_pi_torrent_downloading/
+https://www.reddit.com/r/raspberry_pi/comments/6im8a8/raspberry_pi_simulator_lets_you_start_tinkering/
+https://www.reddit.com/r/raspberry_pi/comments/5nwmfx/im_making_a_pipowered_opensource_mobile_phone/
+https://www.reddit.com/r/raspberry_pi/comments/8iuvk0/self_driving_car_code_was_written_in_python/
+https://www.reddit.com/r/raspberry_pi/comments/6orgn6/my_noise_sensor_sends_visual_alerts_for_the_deaf/
+https://www.reddit.com/r/raspberry_pi/comments/7k73rz/something_you_can_do_with_a_raspberry_pi_now_that/
+https://www.reddit.com/r/raspberry_pi/comments/7srp8o/finally_got_pihole_up_and_running/
+https://www.reddit.com/r/raspberry_pi/comments/acxa17/raspberry_pi_cluster_at_our_lab/
+https://www.reddit.com/r/raspberry_pi/comments/aiug0v/been_working_on_this_tiny_self_driving_car_just/
+https://www.reddit.com/r/raspberry_pi/comments/aiug0v/been_working_on_this_tiny_self_driving_car_just/
+
+uwf, systemctl, apt, apt-get
+grep,awk,sed,cut,find,head,tail,man,curl,wget
+sed,grep,awk
+Lamp-curl,apache logging, time stamps 
+http://httpd.apache.org/docs/2.4/
+https://www.linode.com/docs/web-servers/apache-tips-and-tricks/
+http://sml-family.org/Basis/manpages.html
+(Linux container arch) https://www.youtube.com/watch?v=gcfjWF_H5SU
+metasploit
+https://nostarch.com/malware
+http://www.pathname.com/fhs/
+https://opensource.com/article/18/5/dual-boot-linux
+https://itsfoss.com/install-additional-drivers-ubuntu/
+https://itsfoss.com/fix-ubuntu-freezing/
+https://www.amazon.com/Black-Hat-Python-Programming-Pentesters/dp/1593275900
+Kernel
+
+
