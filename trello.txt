@@ -36,4 +36,28 @@ https://itsfoss.com/fix-ubuntu-freezing/
 https://www.amazon.com/Black-Hat-Python-Programming-Pentesters/dp/1593275900
 Kernel
 
+Linux SSH
+https://linuxize.com/post/how-to-setup-ssh-tunneling/
+https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-18-04/
+https://linuxize.com/post/how-to-setup-passwordless-ssh-login/
+
+https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.pdf
+https://snapcraft.io/install/emacs/raspbian
+
+https://michael.lustfield.net/nginx/dummies-guide-to-setting-up-nginx
+Universal USB Installer
+https://thishosting.rocks/install-php-on-ubuntu/
+http://php.net/manual/en/apcu.configuration.php
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04
+/home/ubuntu/dev/lamp/apacheIndex.html
+
+
+
+
+
+
+
+
+
 
