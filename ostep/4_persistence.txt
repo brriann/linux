@@ -2,29 +2,225 @@
 ### Ch. 36 - I/O Devices
 ###
 
+Memory bus (CPU--memory)
+I/O Bus PCI (graphics?)
+peripheral bus SCSI, SATA, USB
 
+device protocol (status/command/data registers)
+
+polling, progammed I/O
+
+Interrupts - lower CPU overhead, avoid polling cost
+
+device communication 
+- I/O instruction
+- memory mapped I/O
+
+device drivers - large % of OS kernel code
 
 ###
 ### Ch. 37 - Hard Disk Drives
 ###
 
+platter, spindle, track, disk head, disk arm
+
+rotational delay - seek, settling time, transfer
+
+multi-zoned disks, cache/track buffer
+
+disk scheduling - SSTF (seek time) vs SJF (job)
+- SPTF (positioning time), SATF (access time)
 
 
 ###
 ### Ch. 38 - RAIDs (Redundant Arrays of Inexpensive Drives)
 ###
 
+capacity, reliability, performance
+
+mirroring
+
+logical I/O request vs several physical I/O requests to serve the logical request
+
+RAID 0 - Striping
+-no redundancy
+
+RAID 1 - Mirroring
+- copy blocks on different disks
+
+01 / 1+0 vs 01 / 0+1
+
+RAID 4 - Parity
+- XOR function used to preserve even or odd 1's across a set of blocks
+- if 1 dies, the remaining blocks + parity bit can be used to restore it
+
+RAID 5 - Rotating Parity
+
+-parity block rotated across disks
 
 
 ###
 ### Ch. 39 - Interlude: Files and Directories
 ###
 
+- files, directories, directory tree
+
+root dir, sub dirs, absolute pathname
+
+open() system call
+creat() system call
+
+*** STRACE TOOL - reveal system calls made from high-level CLI tools
+- useful for system calls in filesystem reals
+strace cat somefile
+strace mkdir somedir
+...etc
+
+read() system call
+write() system call
+close() system call
+
+lseek() system call - random offsets
+
+OPEN FILE TABLE - data structure maintained system wide, per-process array of file descriptors
+
+fork() and dup() can cause open file table entries to be shared between processes
+
+fsync() system call vs write() - fsync() writes immediately (DMBS use?)
+
+strace mv foo bar
+
+file metadata
+stat() system call
+fstat() system call
+
+INODE - persistent data structure kept by file system with file metadata
+
+unlink() system call
+strace rm foo
+
+mkdir() system call
+strace mkdir foo
+
+opendir() system call
+readdir() system call
+closedir() system call
+rmdir() system call
+
+HARD LINKS AND SYMBOLIC (SOFT) LINKS
+
+ln file file2
+- creates a hard link
+- new name created, referring to same inode number
+- no file copy. just a new human-readable name referring to same inode
+- original file can be deleted, and file2 will still refer to correct inode
+- INODE reference count / link count
+- only when this ref count reaches 0, on unlink(), will a file system free the inode and related data blocks
+
+stat() shows ref count of a file/inode
+
+ln -s file file2
+- creates a symbolic or soft link
+- new file created, of different type
+- stat() shows filetype of symbolic link
+ls shows l (left-most char) for link
+
+- symbolic links point to the PATHNAME of the linked-to file.
+- a dangling reference can be created if original file is deleted
+
+PERMISSION BITS, ACCESS CONTROL LISTS
+
+rwx , ugo (user/owner, group, other)
+
+chmod 600 file
+
+superuser, root
+
+ACL - access control lists, more sophisticated than perm bits
+
+TOCTTOU - time of check to time of use
+- in the interval of time between validity checking and an action based on that validity checking,
+- malicious rename/linking etc of files can happen
+- this can result in privilege escalation, if a file that was OK to be updated, is switched with a file like /etc/passwd via a rename() system call, for example
+
+MAKING/MOUNTING A FILE SYSTEM
+
+mount point, file systems within a directory tree
+
+uniform file-system tree
+
+ext3 - disk-based file system
+proc - file system for info about current processes
+tmpfs - file system for temporary files
+AFS - distributed file system
+
+file
+i-number
+directory
+directory tree
+root
+file descriptor
+open file table
+current offset
+hard links
+symbolic links
+permissions bits
+access control lists
 
 
 ###
 ### Ch. 40 - File System Implementation
 ###
+
+DATA STRUCTURES of a file system
+ACCESS METHODS of a file system, and how they interact with the data structures
+
+blocks - divide disk into blocks
+
+data/user region
+
+inode table
+
+allocation structures:
+- free list
+- bitmap (2x, inode bitmap and data bitmap)
+
+superblock -file system info
+
+inode/ index node
+- holds metadata for a given file
+
+how does an inode refer to where data blocks are located?
+- direct pointers
+- indirect pointers (multi-level index)
+- double or triple indirect pointers
+
+extent - includes a pointer and length
+
+linked list can also be used for inodes
+
+FAT - file allocation table
+
+directory organization
+- B-Tree can be used instead of a simple list
+
+free space management
+- bitmaps, free lists (linked lists), B-Trees
+- represent what chunks of a disk are free
+
+read/write access paths
+- amount of I/O is proportional to pathname
+- each step has I/O for a dir
+
+writing has extra I/O for allocation structures
+
+REDUCING FILE SYSTEM I/O COSTS
+-caching / buffering
+- batching of writes
+
+static vs dynamic partitioning
+
+durability vs performance tradeoff (losing cached writes, yet to be written to disk..)
 
 
 
