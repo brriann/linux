@@ -228,7 +228,43 @@ durability vs performance tradeoff (losing cached writes, yet to be written to d
 ### Ch. 41 - Locality and The Fast File System
 ###
 
+old Unix file system
+[ super block | inodes | data ]
 
+file system was fragmented, and slow
+- reading a logically continuous file would be accessed by going back and forth across the disk
+
+defragmentation
+
+block size was too small : minimized internal fragmentation, but lots of transfer overhead
+
+Berkeley Fast File System FFS
+
+cylinder groups organization structure
+
+Linux ext2, ext3, ext4 organize drive into block groups
+
+Policies for allocation of files and dir's
+- keep related stuff close together
+- keep unrelated stuff far apart
+
+File Locality
+
+Large File Exception
+
+- chunk size is large: most time is spent transferring data, not seeking chunks of block
+
+amortization : do more work per overhead paid
+
+FFS solution to internal fragmentation: smaller sub blocks
+blocks 4KB
+sub-blocks 512-byte
+
+FFS parameterization to avoid rotations between blocks
+
+track buffer (internal disk cache)
+
+long file names / symbolic links
 
 ###
 ### Ch. 42 - Crash Consistency: FSCK and Journaling
