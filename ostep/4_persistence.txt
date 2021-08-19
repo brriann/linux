@@ -270,18 +270,60 @@ long file names / symbolic links
 ### Ch. 42 - Crash Consistency: FSCK and Journaling
 ###
 
+fsck - file system checker
+
+journalling (write-ahead logging) : writing metadata along with data, to preserve state across crashes
+
+data block, inode bitmap, data bitmap
+
+atomicity is hard, because disks only commit one write at a time
+
+fsck: lots of overhead (check everything when only some small number of blocks were written)
+
+write metadata / journal, then data => pointer may point to garbage
+write data, then inode / metadata => pointer will never point to garbage
 
 
 ###
 ### Ch. 43 - Log-structured File Systems
 ###
 
+large difference in performance between random and sequential I/O
+
+how to make all writes sequential?
+
+constantly write at the "tail", in free space
+
+buffers, segments, multiple versions of the same data (garbage)
+
+how to find inodes? inode map
+
+checkpoint region - fixed space to begin lookups
 
 
 ###
 ### Ch. 44 - Flash-based SSDs
 ###
 
+SLC/MLC/TLC - single|multi|triple level cell (1,2,3 bits per transistor stored based on energy levels)
+
+banks - block (128/256 KB), pages (4KB or so)
+
+to write a page within a block, the whole block must be erased
+
+wear out problem / wear leveling
+
+FTL - Flash Translation Layer, turns client read/writes into flash operations
+
+log-structured FTL 
+
+program disturance - affecting nearby transistors during a program/write
+
+mapping tables
+
+block level mapping, page level mapping, hybrid mapping
+
+performance vs HDD - largest gains in random writes, then random reads, (then sequential read/write)
 
 
 ###
