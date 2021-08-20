@@ -329,3 +329,28 @@ performance vs HDD - largest gains in random writes, then random reads, (then se
 ###
 ### Ch. 45 - Data Integrity and Protection
 ###
+
+disk failure modes
+
+latent-sector errors LSE
+- disk sector damaged in some way
+
+block corruption
+
+checksum - detecting corruption
+-XOR, addition
+
+checksum layout on disk
+
+stored checksum vs computed checksum of a data block
+
+misdirected write - write correctly, but to wrong location
+
+lost write - device informs upper layer that a write succeeded, but it hadn't finished yet
+
+disk scrubbing - periodically read through every block, and see if checksums are still valid
+
+8-byte checksum for 4KB data block
+
+
+
